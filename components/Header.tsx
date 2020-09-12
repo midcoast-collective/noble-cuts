@@ -16,7 +16,7 @@ const Header = ({ url = "https://nextjs.org" }: Readonly<HeaderProps>) => {
         <div className="wrap">
           <div className="crown">
             <div className="logo">
-              <Icon.Logo />
+              <Icon.Logo fill="#10103e" />
             </div>
 
             <div className="share">

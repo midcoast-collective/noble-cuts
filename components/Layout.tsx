@@ -15,7 +15,7 @@ const Layout = ({
   title = "Page Title",
   description = "Page Description",
   url = "https://nextjs.org",
-}: Readonly<LayoutProps>) => {
+}: Readonly<LayoutProps>): JSX.Element => {
   return (
     <>
       <Head>
@@ -55,15 +55,10 @@ const Layout = ({
 
       <footer>
         <div className="wrap">
-          <div className="branding">
-            <Icon.Branding />
+          <div className="logo">
+            <Icon.Logo fill="#ffffff" />
           </div>
-          &copy;{new Date().getFullYear()} A collaboration between{" "}
-          <a href="https://saintjoseph.com">
-            The St. Joseph Chamber of Commerce
-          </a>{" "}
-          & <a href="https://midcoast.io">Midcoast Collective</a>. All rights
-          reserved.
+          &copy;{new Date().getFullYear()} Noble Cuts. All rights reserved.
         </div>
       </footer>
     </>
