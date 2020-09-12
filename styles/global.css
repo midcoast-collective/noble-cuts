@@ -2,11 +2,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --color-primary: #5e489d;
-  --color-secondary: #ee4780;
+  --color-primary: #10103e;
+  --color-secondary: #efc94f;
   --color-tertiary: #5396d0;
-  --color-quaternary: #75ccce;
-  --color-default: #545454;
+  --color-default: #10103e;
   --color-white: #ffffff;
   --color-mute: #f0f0f0;
 
