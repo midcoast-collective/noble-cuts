@@ -1,0 +1,47 @@
+backend:
+  name: git-gateway
+  branch: master
+media_folder: "public/images/uploads"
+public_folder: ""
+site_url: "https://noblecutsmeat.com"
+logo_url: "https://noblecutsmeat.com/images/og-image.png"
+locale: "en"
+show_preview_links: true
+# publish_mode: editorial_workflow
+collections:
+  - name: "post"
+    label: "Post"
+    description: "Add and edit product entries."
+    identifier_field: name
+    folder: "products"
+    create: true
+    slug: "{{slug}}"
+    preview: false
+    # preview_path: ""
+    # sortableFields: ["name"]
+    # view_filters:
+    #   - label: "Category"
+    #     field: "category"
+    #     pattern: "category"
+    #   - label: "Category2"
+    #     field: "category"
+    #     pattern: "category2"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - { label: "Price", name: "price", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      # - {
+      #     label: "Select",
+      #     name: "select",
+      #     widget: "select",
+      #     options: ["option", "option2", "option3"],
+      #     required: false
+      #   }
+      # - {
+      #     label: "Boolean",
+      #     name: "boolean",
+      #     widget: "boolean",
+      #     default: true,
+      #     required: false
+      #   }
