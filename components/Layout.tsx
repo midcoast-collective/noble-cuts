@@ -37,6 +37,14 @@ const Layout = ({
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={url + "/images/og-image.png"} />
 
+        <script
+          type="text/javascript"
+          src="https://js.squareupsandbox.com/v2/paymentform"
+        ></script>
+        {/* <script
+          type="text/javascript"
+          src="https://js.squareup.com/v2/paymentform"
+        ></script> */}
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
       </Head>
 
