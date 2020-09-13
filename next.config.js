@@ -1,30 +1,17 @@
 const withPlugins = require("next-compose-plugins");
+const optimizedImages = require("next-optimized-images");
 
 const nextConfig = {
   target: "serverless",
+  trailingSlash: true,
   webpack: (config, options) => {
-    config.module.rules.push(
-      {
-        test: /\.md$/,
-        use: "raw-loader",
-      },
-      {
-        test: /\.(jpe?g|png|webp)$/i,
-        use: {
-          loader: "responsive-loader",
-          options: {
-            adapter: require("responsive-loader/sharp"),
-            name: "[name]-[width].[ext]",
-            outputPath: "../public/images/responsive/",
-            publicPath: "images/responsive/",
-            emitFile: true,
-          },
-        },
-      }
-    );
+    config.module.rules.push({
+      test: /\.md$/,
+      use: "raw-loader",
+    });
 
     return config;
   },
 };
 
-module.exports = withPlugins([], nextConfig);
+module.exports = withPlugins([optimizedImages], nextConfig);

@@ -1,9 +1,9 @@
 import React from "react";
 import matter from "gray-matter";
 import { GetStaticProps } from "next";
+import YouTubeEmbed from "react-youtube-embed";
 
-import Layout from "@components/Layout";
-import PostList from "@components/PostList";
+import { Layout, ProductList } from "@components/index";
 
 declare global {
   interface Window {
@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-export namespace Post {
+export namespace Product {
   export type PreProcessed = {
     [key: string]: string | boolean;
     content: string;
@@ -22,26 +22,19 @@ export namespace Post {
     name: string;
     category: string;
     thumbnail: string;
-    website: string;
-    giftcard?: string;
-    number?: string;
-    pickup: boolean;
-    delivery: boolean;
-    masks: boolean;
-    masked: boolean;
     content: string;
     slug: string;
   };
 }
 
 type IndexProps = {
-  posts: Post.Processed[];
+  products: Product.Processed[];
   title: string;
   description: string;
   url: string;
 };
 
-const Index = ({ posts, title, description, url }: Readonly<IndexProps>) => {
+const Index = ({ products, title, description, url }: Readonly<IndexProps>) => {
   if (typeof window !== "undefined" && window.netlifyIdentity) {
     window.netlifyIdentity.on("init", (user: unknown) => {
       if (!user) {
@@ -55,7 +48,8 @@ const Index = ({ posts, title, description, url }: Readonly<IndexProps>) => {
   return (
     <Layout title={title} description={description} url={url}>
       <main>
-        <PostList posts={posts} />
+        <YouTubeEmbed id="AogN7XQruZY" />
+        <ProductList products={products} />
       </main>
     </Layout>
   );
@@ -66,7 +60,7 @@ export default Index;
 export const getStaticProps: GetStaticProps = async () => {
   const configData = await import(`../siteconfig.json`);
 
-  const extractPosts = (context: __WebpackModuleApi.RequireContext) => {
+  const extractProducts = (context: __WebpackModuleApi.RequireContext) => {
     const keys: string[] = context.keys();
     const values: any = keys.map(context);
 
@@ -87,12 +81,12 @@ export const getStaticProps: GetStaticProps = async () => {
     return data;
   };
 
-  const postContext = require.context("../posts", true, /\.md$/);
-  const posts: Post.PreProcessed[] = extractPosts(postContext);
+  const productsContext = require.context("../posts", true, /\.md$/);
+  const products: Product.PreProcessed[] = extractProducts(productsContext);
 
   return {
     props: {
-      posts,
+      products,
       title: configData.title,
       description: configData.description,
       url: configData.url,

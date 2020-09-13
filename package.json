@@ -11,12 +11,12 @@
   "dependencies": {
     "gray-matter": "^4.0.2",
     "next": "9.5.2",
+    "next-optimized-images": "^3.0.0-canary.10",
     "raw-loader": "^4.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-markdown": "^4.3.1",
     "react-youtube-embed": "^1.0.3",
-    "responsive-loader": "^2.0.2",
     "sharp": "^0.25.4"
   },
   "devDependencies": {

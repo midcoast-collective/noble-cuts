@@ -1,6 +1,6 @@
 import React from "react";
 
-import ResponsiveImg from "@components/ResponsiveImg";
+import { ResponsiveImage } from "@components/index";
 import { Product as ProductType } from "@pages/index";
 
 type ProductProps = {
@@ -12,7 +12,7 @@ const Product = ({ product }: Readonly<ProductProps>) => (
     <div className="product-content">
       <h2>{product.name}</h2>
 
-      <ResponsiveImg src={product.thumbnail} />
+      {/* <ResponsiveImage data={product.thumbnail} /> */}
 
       <p>{product.content}</p>
     </div>

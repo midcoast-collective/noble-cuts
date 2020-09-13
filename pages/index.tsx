@@ -2,8 +2,7 @@ import React from "react";
 import matter from "gray-matter";
 import { GetStaticProps } from "next";
 
-import Layout from "@components/Layout";
-import ProductList from "@components/ProductList";
+import { Layout, HomePage } from "@components/index";
 
 declare global {
   interface Window {
@@ -34,7 +33,13 @@ type IndexProps = {
   url: string;
 };
 
-const Index = ({ products, title, description, url }: Readonly<IndexProps>) => {
+const Index = ({
+  products,
+  title,
+  description,
+  url,
+}: Readonly<IndexProps>): JSX.Element => {
+  // Redirect to Netlify CMS Admin if coming from login view
   if (typeof window !== "undefined" && window.netlifyIdentity) {
     window.netlifyIdentity.on("init", (user: unknown) => {
       if (!user) {
@@ -47,9 +52,7 @@ const Index = ({ products, title, description, url }: Readonly<IndexProps>) => {
 
   return (
     <Layout title={title} description={description} url={url}>
-      <main>
-        <ProductList products={products} />
-      </main>
+      <HomePage products={products} />
     </Layout>
   );
 };
@@ -57,8 +60,9 @@ const Index = ({ products, title, description, url }: Readonly<IndexProps>) => {
 export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const configData = await import(`../siteconfig.json`);
+  const configData = await import("../siteconfig.json");
 
+  // Extract product data from posts directory
   const extractProducts = (context: __WebpackModuleApi.RequireContext) => {
     const keys: string[] = context.keys();
     const values: any = keys.map(context);
@@ -80,7 +84,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return data;
   };
 
-  const productsContext = require.context("../products", true, /\.md$/);
+  const productsContext = require.context("../posts", true, /\.md$/);
   const products: Product.PreProcessed[] = extractProducts(productsContext);
 
   return {

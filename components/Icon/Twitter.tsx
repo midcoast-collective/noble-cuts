@@ -1,3 +1,5 @@
+import React from "react";
+
 export const Twitter = () => (
   <svg
     width="20"

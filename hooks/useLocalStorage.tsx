@@ -1,7 +1,7 @@
 import React from "react";
 
 // Usage: const [cart, setCartValue] = useLocalStorageState();
-export const useLocalStorageState = () => {
+const useLocalStorage = () => {
   const [cart, setCartValue] = React.useState(
     localStorage.getItem("NOBLE_CUTS_SHOPPING_CART") || ""
   );
@@ -12,3 +12,5 @@ export const useLocalStorageState = () => {
 
   return [cart, setCartValue];
 };
+
+export default useLocalStorage;
