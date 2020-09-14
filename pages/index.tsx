@@ -84,9 +84,8 @@ export const getStaticProps: GetStaticProps = async () => {
     return data;
   };
 
-  const productsContext = require.context("../posts", true, /\.md$/);
-  const products: Product.PreProcessed[] =
-    productsContext && extractProducts(productsContext);
+  const productsContext = require.context("../content/products", true, /\.md$/);
+  const products: Product.PreProcessed[] = extractProducts(productsContext);
 
   return {
     props: {
