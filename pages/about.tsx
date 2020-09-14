@@ -1,9 +1,8 @@
 import React from "react";
 import matter from "gray-matter";
 import { GetStaticProps } from "next";
-import YouTubeEmbed from "react-youtube-embed";
 
-import { Layout, ProductList } from "@components/index";
+import { Layout, HomePage } from "@components/index";
 
 declare global {
   interface Window {
@@ -27,14 +26,20 @@ export namespace Product {
   };
 }
 
-type IndexProps = {
+type AboutProps = {
   products: Product.Processed[];
   title: string;
   description: string;
   url: string;
 };
 
-const Index = ({ products, title, description, url }: Readonly<IndexProps>) => {
+const About = ({
+  products,
+  title,
+  description,
+  url,
+}: Readonly<AboutProps>): JSX.Element => {
+  // Redirect to Netlify CMS Admin if coming from login view
   if (typeof window !== "undefined" && window.netlifyIdentity) {
     window.netlifyIdentity.on("init", (user: unknown) => {
       if (!user) {
@@ -47,19 +52,17 @@ const Index = ({ products, title, description, url }: Readonly<IndexProps>) => {
 
   return (
     <Layout title={title} description={description} url={url}>
-      <main>
-        <YouTubeEmbed id="AogN7XQruZY" />
-        <ProductList products={products} />
-      </main>
+      <HomePage products={products} />
     </Layout>
   );
 };
 
-export default Index;
+export default About;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const configData = await import(`../siteconfig.json`);
+  const configData = await import("../siteconfig.json");
 
+  // Extract product data from posts directory
   const extractProducts = (context: __WebpackModuleApi.RequireContext) => {
     const keys: string[] = context.keys();
     const values: any = keys.map(context);
