@@ -18,6 +18,18 @@ const Layout = ({
   url = "https://noblecutsmeat.com",
   image = "/images/og-image.png",
 }: Readonly<LayoutProps>): JSX.Element => {
+  // Redirect to Netlify CMS Admin if coming from login view
+  if (typeof window !== "undefined" && window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user: unknown) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          console.log("Logged In...");
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+
   return (
     <>
       <Head>

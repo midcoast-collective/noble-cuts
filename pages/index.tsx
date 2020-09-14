@@ -38,24 +38,11 @@ const Index = ({
   title,
   description,
   url,
-}: Readonly<IndexProps>): JSX.Element => {
-  // Redirect to Netlify CMS Admin if coming from login view
-  if (typeof window !== "undefined" && window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", (user: unknown) => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-
-  return (
-    <Layout title={title} description={description} url={url}>
-      <HomePage products={products} />
-    </Layout>
-  );
-};
+}: Readonly<IndexProps>): JSX.Element => (
+  <Layout title={title} description={description} url={url}>
+    <HomePage products={products} />
+  </Layout>
+);
 
 export default Index;
 
