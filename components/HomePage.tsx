@@ -13,6 +13,21 @@ type HomePageProps = {
 };
 
 const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
+  React.useEffect(() => {
+    // Redirect to Netlify CMS Admin if coming from login view
+    // TODO: Get this working :(
+    if (typeof window !== "undefined" && window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user: unknown) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            console.log("Logged In...");
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  });
+
   return (
     <main>
       <div className="hero">

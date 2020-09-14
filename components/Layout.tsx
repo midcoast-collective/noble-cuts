@@ -17,88 +17,74 @@ const Layout = ({
   description = "Page Description",
   url = "https://noblecutsmeat.com",
   image = "/images/og-image.png",
-}: Readonly<LayoutProps>): JSX.Element => {
-  // Redirect to Netlify CMS Admin if coming from login view
-  if (typeof window !== "undefined" && window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", (user: unknown) => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          console.log("Logged In...");
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
+}: Readonly<LayoutProps>): JSX.Element => (
+  <>
+    <Head>
+      <meta
+        key="apple-mobile-web-app-capable"
+        name="apple-mobile-web-app-capable"
+        content="yes"
+      />
+      <meta
+        key="viewport"
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+      />
 
-  return (
-    <>
-      <Head>
-        <meta
-          key="apple-mobile-web-app-capable"
-          name="apple-mobile-web-app-capable"
-          content="yes"
-        />
-        <meta
-          key="viewport"
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        />
+      <title key="title">{title}</title>
 
-        <title key="title">{title}</title>
+      <meta key="description" name="description" content={description} />
 
-        <meta key="description" name="description" content={description} />
+      <meta key="og:type" property="og:type" content="website" />
+      <meta key="og:url" property="og:url" content={url} />
+      <meta key="og:title" property="og:title" content={title} />
+      <meta
+        key="og:description"
+        property="og:description"
+        content={description}
+      />
+      <meta key="og:image" property="og:image" content={url + image} />
 
-        <meta key="og:type" property="og:type" content="website" />
-        <meta key="og:url" property="og:url" content={url} />
-        <meta key="og:title" property="og:title" content={title} />
-        <meta
-          key="og:description"
-          property="og:description"
-          content={description}
-        />
-        <meta key="og:image" property="og:image" content={url + image} />
+      <meta
+        key="twitter:card"
+        name="twitter:card"
+        content="summary_large_image"
+      />
+      <meta key="twitter:titl" name="twitter:title" content={title} />
+      <meta
+        key="twitter:description"
+        name="twitter:description"
+        content={description}
+      />
+      <meta key="twitter:image" name="twitter:image" content={url + image} />
 
-        <meta
-          key="twitter:card"
-          name="twitter:card"
-          content="summary_large_image"
-        />
-        <meta key="twitter:titl" name="twitter:title" content={title} />
-        <meta
-          key="twitter:description"
-          name="twitter:description"
-          content={description}
-        />
-        <meta key="twitter:image" name="twitter:image" content={url + image} />
-
-        <link
-          key="google-fonts"
-          href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap"
-          rel="stylesheet"
-        />
-        <script
-          key="square"
-          type="text/javascript"
-          src="https://js.squareupsandbox.com/v2/paymentform"
-        ></script>
-        {/* <script
+      <link
+        key="google-fonts"
+        href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap"
+        rel="stylesheet"
+      />
+      <script
+        key="square"
+        type="text/javascript"
+        src="https://js.squareupsandbox.com/v2/paymentform"
+      ></script>
+      {/* <script
           key="square"
           type="text/javascript"
           src="https://js.squareup.com/v2/paymentform"
         ></script> */}
-        <script
-          key="netlify"
-          src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-        ></script>
-      </Head>
+      <script
+        key="netlify"
+        src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+      ></script>
+    </Head>
 
-      <h1 className="sr-only">{title}</h1>
+    <h1 className="sr-only">{title}</h1>
 
-      <Header />
-      {children}
-      <Footer />
-    </>
-  );
-};
+    <Header />
+    {children}
+    <Footer />
+  </>
+);
 
 export default Layout;
