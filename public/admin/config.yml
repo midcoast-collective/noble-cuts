@@ -8,11 +8,11 @@ logo_url: "https://noblecutsmeat.com/images/og-image.png"
 locale: "en"
 show_preview_links: true
 collections:
-  - name: "post"
-    label: "Post"
-    description: "Add and edit product entries."
+  - name: "product"
+    label: "Product"
+    description: "Add and edit products."
     identifier_field: name
-    folder: "products"
+    folder: "content/products"
     create: true
     slug: "{{slug}}"
     preview: false
