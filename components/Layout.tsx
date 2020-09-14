@@ -80,6 +80,8 @@ const Layout = ({
         ></script>
       </Head>
 
+      <h1 className="sr-only">{title}</h1>
+
       <Header />
       {children}
       <Footer />

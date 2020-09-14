@@ -12,15 +12,20 @@ const Header = ({}: Readonly<HeaderProps>) => {
         <Link href="/about/">
           <a>ABOUT</a>
         </Link>
-        <Link href="/" className="logo">
-          <a>
+        <Link href="/">
+          <a className="logo">
             <Icon.Logo fill="#10103e" />
           </a>
         </Link>
         <Link href="/#products">
-          <a>BUY</a>
+          <a>SHOP</a>
         </Link>
       </nav>
+
+      <div className="cart">
+        <span>{"1"}</span>
+        <Icon.Cart />
+      </div>
     </header>
   );
 };
