@@ -1,5 +1,5 @@
 import React from "react";
-import YouTubeEmbed from "react-youtube-embed";
+import YouTube from "react-youtube";
 import Img from "react-optimized-image";
 
 import { Product } from "@pages/index";
@@ -28,10 +28,12 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
     }
   });
 
+  const [videoIsVisibile, setVideoIsVisible] = React.useState(false);
+
   return (
     <main>
       <div className="hero">
-        <Img alt="Noble Cuts" src={HeroImg} type="hero" loading="lazy" />
+        <Img alt="Noble Cuts" src={HeroImg} type="hero" loading="eager" />
       </div>
 
       <section className="gray" id="products">
@@ -53,7 +55,13 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
         </div>
 
         <div className="wrap">
-          <YouTubeEmbed id="FavUpD_IjVY" />
+          <div style={{ visibility: videoIsVisibile ? "visible" : "hidden" }}>
+            <YouTube
+              containerClassName="video-container"
+              videoId="FavUpD_IjVY"
+              onReady={() => setVideoIsVisible(true)}
+            />
+          </div>
         </div>
       </section>
 

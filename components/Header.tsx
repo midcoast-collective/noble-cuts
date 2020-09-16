@@ -21,11 +21,6 @@ const Header = ({}: Readonly<HeaderProps>) => {
           <a>SHOP</a>
         </Link>
       </nav>
-
-      <div className="cart">
-        <span>{"1"}</span>
-        <Icon.Cart />
-      </div>
     </header>
   );
 };

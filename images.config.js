@@ -1,7 +1,7 @@
 module.exports = {
   default: {
     webp: true,
-    lqip: true,
+    lqip: false,
   },
   types: {
     hero: {

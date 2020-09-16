@@ -2,7 +2,7 @@ import React from "react";
 
 export const Cuts = () => (
   <svg
-    className="cuts"
+    className="cutsa"
     width="684"
     height="419"
     viewBox="0 0 684 419"
