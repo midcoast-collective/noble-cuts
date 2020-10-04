@@ -4,7 +4,7 @@ import Img from "react-optimized-image";
 
 import { Product } from "@pages/index";
 import { Icon } from "@components/index";
-import HeroImg from "../public/images/home-page-hero.jpg";
+import HeroImage from "../public/images/home-page-hero.jpg";
 import GenerationsLeftImg from "../public/images/home-page-generations-left.jpg";
 import GenerationsRightImg from "../public/images/home-page-generations-right.jpg";
 
@@ -33,12 +33,7 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
   return (
     <main>
       <div className="hero">
-        <Img
-          alt="Noble Cuts"
-          src={require(`../public/images/${HeroImg}`)}
-          type="hero"
-          loading="eager"
-        />
+        <Img alt="Noble Cuts" src={HeroImage} type="hero" loading="eager" />
       </div>
 
       <section className="gray" id="products">
