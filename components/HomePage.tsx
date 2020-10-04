@@ -33,7 +33,12 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
   return (
     <main>
       <div className="hero">
-        <Img alt="Noble Cuts" src={HeroImg} type="hero" loading="eager" />
+        <Img
+          alt="Noble Cuts"
+          src={require(`../public/images/${HeroImg}`)}
+          type="hero"
+          loading="eager"
+        />
       </div>
 
       <section className="gray" id="products">
