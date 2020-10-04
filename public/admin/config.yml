@@ -8,8 +8,8 @@ logo_url: "https://noblecutsmeat.com/images/og-image.png"
 locale: "en"
 show_preview_links: true
 collections:
-  - name: "product"
-    label: "Product"
+  - name: "products"
+    label: "Products"
     description: "Add and edit products."
     identifier_field: name
     folder: "content/products"
