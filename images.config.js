@@ -1,7 +1,7 @@
 module.exports = {
   default: {
     webp: true,
-    lqip: false,
+    lqip: true,
   },
   types: {
     hero: {
@@ -10,6 +10,10 @@ module.exports = {
     },
     double: {
       sizes: [600, 1200],
+      breakpoints: [600],
+    },
+    product: {
+      sizes: [200, 400],
       breakpoints: [600],
     },
   },

@@ -19,7 +19,14 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Featured Image", name: "thumbnail", widget: "image" }
-      - { label: "Price", name: "price", widget: "number" }
+      - {
+          label: "Price",
+          name: "price",
+          widget: "number",
+          default: 500.00,
+          value_type: "float",
+          step: 50,
+        }
       - { label: "Description", name: "body", widget: "markdown" }
   - label: "Pages"
     name: "pages"

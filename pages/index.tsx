@@ -1,8 +1,9 @@
 import React from "react";
-import matter from "gray-matter";
 import { GetStaticProps } from "next";
 
 import { Layout, HomePage } from "@components/index";
+import { Product, getProductsData } from "../api/getProductsData";
+import { Page, getPagesData } from "../api/getPagesData";
 
 declare global {
   interface Window {
@@ -10,24 +11,9 @@ declare global {
   }
 }
 
-export namespace Product {
-  export type PreProcessed = {
-    [key: string]: string | boolean;
-    content: string;
-    slug: string;
-  };
-
-  export type Processed = {
-    name: string;
-    category: string;
-    thumbnail: string;
-    content: string;
-    slug: string;
-  };
-}
-
 type IndexProps = {
-  products: Product.Processed[];
+  products: Product[];
+  page: Page;
   title: string;
   description: string;
   url: string;
@@ -35,12 +21,13 @@ type IndexProps = {
 
 const Index = ({
   products,
+  page,
   title,
   description,
   url,
 }: Readonly<IndexProps>): JSX.Element => (
   <Layout title={title} description={description} url={url}>
-    <HomePage products={products} />
+    <HomePage products={products} page={page} />
   </Layout>
 );
 
@@ -48,35 +35,13 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
   const configData = await import("../siteconfig.json");
-
-  // Extract product data from posts directory
-  const extractProducts = (context: __WebpackModuleApi.RequireContext) => {
-    const keys: string[] = context.keys();
-    const values: any = keys.map(context);
-
-    const data = keys.map((key, index) => {
-      const slug: string = key.replace(/^.*[\\\/]/, "").slice(0, -3);
-      const value: any = values[index];
-      const document: { data: object; content: string } = matter(
-        value?.default
-      );
-
-      return {
-        ...document?.data,
-        content: document?.content,
-        slug,
-      };
-    });
-
-    return data;
-  };
-
-  const productsContext = require.context("../content/products", true, /\.md$/);
-  const products: Product.PreProcessed[] = extractProducts(productsContext);
+  const products = await getProductsData();
+  const pages = getPagesData();
 
   return {
     props: {
       products,
+      page: pages.filter((page) => page.id === "home")[0],
       title: configData.title,
       description: configData.description,
       url: configData.url,

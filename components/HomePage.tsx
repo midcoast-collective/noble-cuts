@@ -2,17 +2,17 @@ import React from "react";
 import YouTube from "react-youtube";
 import Img from "react-optimized-image";
 
-import { Product } from "@pages/index";
+import { Product } from "../api/getProductsData";
+import { Page } from "../api/getPagesData";
 import { Icon } from "@components/index";
 import HeroImage from "../public/images/home-page-hero.jpg";
-import GenerationsLeftImg from "../public/images/home-page-generations-left.jpg";
-import GenerationsRightImg from "../public/images/home-page-generations-right.jpg";
 
 type HomePageProps = {
-  products?: Product.Processed[];
+  products: Product[];
+  page: Page;
 };
 
-const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
+const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
   React.useEffect(() => {
     // Redirect to Netlify CMS Admin if coming from login view
     // TODO: Get this working :(
@@ -30,6 +30,8 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
 
   const [videoIsVisibile, setVideoIsVisible] = React.useState(false);
 
+  console.log({ products, page });
+
   return (
     <main>
       <div className="hero">
@@ -41,6 +43,25 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
           <h2>Products</h2>
 
           <Icon.Cuts />
+        </div>
+
+        <div className="wrap">
+          <div className="products">
+            {products.map((product) => (
+              <div className="product" key={product.id}>
+                <h3>{product.title}</h3>
+                <Img
+                  src={require(`../public/images/uploads/${product.thumbnail}`)}
+                  type="product"
+                  loading="lazy"
+                />
+                <div
+                  dangerouslySetInnerHTML={{ __html: product.description }}
+                />
+                <button className="button">Add to Cart</button>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -65,36 +86,34 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
         </div>
       </section>
 
-      <section>
-        <h2>Seven Generations and Counting...</h2>
+      {page.blocks.map((block, ind) => (
+        <section key={ind}>
+          <h2>{block.title}</h2>
 
-        <div className="wrap narrow">
-          <p className="blurb">
-            We know this land. More importantly, we know that being good
-            stewards of our Century Farm puts a better product on your dinner
-            table.
-          </p>
-        </div>
-
-        <div className="wrap">
-          <div className="double">
-            <Img
-              alt="Noble Cuts - Seven Generations and Counting..."
-              src={GenerationsLeftImg}
-              type="double"
-              loading="lazy"
-            />
-            <Img
-              alt="Noble Cuts - Seven Generations and Counting..."
-              src={GenerationsRightImg}
-              type="double"
-              loading="lazy"
-            />
+          <div className="wrap narrow">
+            <p className="blurb">{block.blurb}</p>
           </div>
-        </div>
-      </section>
 
-      <section>
+          <div className="wrap">
+            <div className="double">
+              <Img
+                alt={block.title}
+                src={require(`../public/images/uploads/${block.photo1}`)}
+                type="double"
+                loading="lazy"
+              />
+              <Img
+                alt={block.title}
+                src={require(`../public/images/uploads/${block.photo2}`)}
+                type="double"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* <section>
         <h2>The Right Nutrition at the Right Time</h2>
 
         <div className="wrap narrow">
@@ -176,7 +195,7 @@ const HomePage = ({ products = [] }: Readonly<HomePageProps>): JSX.Element => {
             />
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 };
