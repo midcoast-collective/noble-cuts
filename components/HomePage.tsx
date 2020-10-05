@@ -100,13 +100,7 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
             <div className="double">
               <Img
                 alt={block.title}
-                src={require(`../public/images/uploads/${block.photo1}`)}
-                type="double"
-                loading="lazy"
-              />
-              <Img
-                alt={block.title}
-                src={require(`../public/images/uploads/${block.photo2}`)}
+                src={require(`../public/images/uploads/${block.photo}`)}
                 type="double"
                 loading="lazy"
               />
