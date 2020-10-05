@@ -5,11 +5,11 @@ media_folder: "public/images/uploads"
 public_folder: ""
 site_url: "https://noblecutsmeat.com"
 logo_url: "https://noblecutsmeat.com/images/og-image.png"
-locale: "en"
+locale: en
 show_preview_links: true
 collections:
-  - name: "product"
-    label: "Products"
+  - name: product
+    label: Products
     description: "Add and edit products."
     identifier_field: name
     folder: "content/products"
@@ -17,43 +17,37 @@ collections:
     slug: "{{slug}}"
     preview: false
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Featured Image", name: "thumbnail", widget: "image" }
+      - { label: Title, name: title, widget: string }
+      - { label: Featured Image, name: thumbnail, widget: image }
       - {
-          label: "Price",
-          name: "price",
-          widget: "number",
+          label: Price,
+          name: price,
+          widget: number,
           default: 500.00,
-          value_type: "float",
+          value_type: float,
           step: 50,
         }
-      - { label: "Description", name: "body", widget: "markdown" }
-  - label: "Pages"
-    name: "pages"
+      - { label: Description, name: description, widget: text }
+  - label: Pages
+    name: pages
     files:
-      - label: "Home Page"
-        name: "home"
+      - label: Home Page
+        name: home
         file: "content/pages/home.md"
         fields:
           - { label: Title, name: title, widget: string }
-          - { label: Intro, name: intro, widget: markdown }
+          - { label: Intro, name: intro, widget: text }
           - label: Blocks
             name: blocks
             widget: list
             fields:
               - { label: Title, name: title, widget: string }
-              - { label: Blurb, name: blurb, widget: markdown }
+              - { label: Blurb, name: blurb, widget: text }
               - { label: Photo 1, name: photo1, widget: image }
               - { label: Photo 2, name: photo2, widget: image }
-      - label: "About Page"
-        name: "about"
+      - label: About Page
+        name: about
         file: "content/pages/about.md"
         fields:
           - { label: Title, name: title, widget: string }
-          - { label: Intro, name: intro, widget: markdown }
-          - label: Locations
-            name: locations
-            widget: list
-            fields:
-              - { label: Name, name: name, widget: string }
-              - { label: Address, name: address, widget: string }
+          - { label: Intro, name: intro, widget: text }

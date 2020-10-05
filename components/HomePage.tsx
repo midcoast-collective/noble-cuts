@@ -55,9 +55,7 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
                   type="product"
                   loading="lazy"
                 />
-                <div
-                  dangerouslySetInnerHTML={{ __html: product.description }}
-                />
+                <p>{product.description}</p>
                 <button className="button">Add to Cart</button>
               </div>
             ))}
@@ -66,13 +64,10 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
       </section>
 
       <section>
-        <h2>Noble Cuts</h2>
+        <h2>{page.title}</h2>
 
         <div className="wrap narrow">
-          <p className="blurb">
-            Say something geniune and heartfelt about this video, please. Also,
-            be sure to watch the placeholder because it's funny.
-          </p>
+          <p className="blurb">{page.intro}</p>
         </div>
 
         <div className="wrap">
@@ -86,8 +81,8 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
         </div>
       </section>
 
-      {page.blocks.map((block, ind) => (
-        <section key={ind}>
+      {page.blocks.map((block) => (
+        <section key={block.title}>
           <h2>{block.title}</h2>
 
           <div className="wrap narrow">
@@ -112,90 +107,6 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
           </div>
         </section>
       ))}
-
-      {/* <section>
-        <h2>The Right Nutrition at the Right Time</h2>
-
-        <div className="wrap narrow">
-          <p className="blurb">
-            Ya herd right. We feed our cows specific nutrients at specific times
-            to ensure they mature into the best darn cows they can be.
-          </p>
-        </div>
-
-        <div className="wrap">
-          <div className="double">
-            <Img
-              alt="Noble Cuts - The Right Nutrition at the Right Time"
-              src={GenerationsLeftImg}
-              type="double"
-              loading="lazy"
-            />
-            <Img
-              alt="Noble Cuts - The Right Nutrition at the Right Time"
-              src={GenerationsRightImg}
-              type="double"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Stress-free Cows</h2>
-
-        <div className="wrap narrow">
-          <p className="blurb">
-            We care for our cattle in every sense of the word. Less stress =
-            better beef. Period.
-          </p>
-        </div>
-
-        <div className="wrap">
-          <div className="double">
-            <Img
-              alt="Noble Cuts - Stress-free Cows"
-              src={GenerationsLeftImg}
-              type="double"
-              loading="lazy"
-            />
-            <Img
-              alt="Noble Cuts - Stress-free Cows"
-              src={GenerationsRightImg}
-              type="double"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2>Customers of Our Product</h2>
-
-        <div className="wrap narrow">
-          <p className="blurb">
-            The product we deliver to your door step is what we put on our
-            family table every single week. We love it and so will your family.
-          </p>
-        </div>
-
-        <div className="wrap">
-          <div className="double">
-            <Img
-              alt="Noble Cuts - Customers of Our Product"
-              src={GenerationsLeftImg}
-              type="double"
-              loading="lazy"
-            />
-            <Img
-              alt="Noble Cuts - Customers of Our Product"
-              src={GenerationsRightImg}
-              type="double"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section> */}
     </main>
   );
 };

@@ -35,7 +35,7 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
   const configData = await import("../siteconfig.json");
-  const products = await getProductsData();
+  const products = getProductsData();
   const pages = getPagesData();
 
   return {
