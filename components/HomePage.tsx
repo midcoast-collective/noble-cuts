@@ -30,8 +30,6 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
 
   const [videoIsVisibile, setVideoIsVisible] = React.useState(false);
 
-  console.log({ products, page });
-
   return (
     <main>
       <div className="hero">
