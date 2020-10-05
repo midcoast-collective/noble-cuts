@@ -18,5 +18,5 @@ blocks:
   - title: Customers of Our Product
     blurb: The product we deliver to your door step is what we put on our family
       table every single week. We love it and so will your family.
-    photo: dsc_4437.jpg
+    photo: dsc_5131.jpg
 ---
