@@ -5,8 +5,7 @@ import matter from "gray-matter";
 export type Block = {
   title: string;
   blurb: string;
-  photo1: string;
-  photo2: string;
+  photo: string;
 };
 
 export type Page = {

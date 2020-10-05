@@ -8,7 +8,7 @@ module.exports = {
       sizes: [600, 1200, 1800],
       breakpoints: [600, 1200],
     },
-    double: {
+    block: {
       sizes: [600, 1200],
       breakpoints: [600],
     },

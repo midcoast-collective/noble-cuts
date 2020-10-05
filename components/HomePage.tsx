@@ -97,14 +97,12 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
           </div>
 
           <div className="wrap">
-            <div className="double">
-              <Img
-                alt={block.title}
-                src={require(`../public/images/uploads/${block.photo}`)}
-                type="double"
-                loading="lazy"
-              />
-            </div>
+            <Img
+              alt={block.title}
+              src={require(`../public/images/uploads/${block.photo}`)}
+              loading="lazy"
+              type="block"
+            />
           </div>
         </section>
       ))}
