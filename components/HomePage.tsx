@@ -61,6 +61,15 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
         </div>
       </section>
 
+      {/* The Right Nutrition at the Right Time
+      Ya herd right. We feed our cows specific nutrients at specific times to ensure they mature into the best darn cows they can be.
+
+      Stress-free Cows
+      We care for our cattle in every sense of the word. Less stress = better beef. Period.
+
+      Customers of Our Product
+      The product we deliver to your door step is what we put on our family table every single week. We love it and so will your family. */}
+
       <section>
         <h2>{page.title}</h2>
 
@@ -72,7 +81,7 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
           <div style={{ visibility: videoIsVisibile ? "visible" : "hidden" }}>
             <YouTube
               containerClassName="video-container"
-              videoId="FavUpD_IjVY"
+              videoId="cB2WAR017jk"
               onReady={() => setVideoIsVisible(true)}
             />
           </div>
