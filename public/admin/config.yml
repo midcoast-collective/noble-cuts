@@ -30,13 +30,14 @@ collections:
         fields:
           - { label: Title, name: title, widget: string }
           - { label: Intro, name: intro, widget: markdown }
-          - label: Team
-            name: team
+          - label: Blocks
+            name: blocks
             widget: list
             fields:
-              - { label: Name, name: name, widget: string }
-              - { label: Position, name: position, widget: string }
-              - { label: Photo, name: photo, widget: image }
+              - { label: Title, name: title, widget: string }
+              - { label: Blurb, name: blurb, widget: markdown }
+              - { label: Photo 1, name: photo1, widget: image }
+              - { label: Photo 2, name: photo2, widget: image }
       - label: "About Page"
         name: "about"
         file: "content/pages/about.yml"
