@@ -21,6 +21,10 @@
   --opacity: 0.9;
   --box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   --border-radius: 4px;
+
+  --break-small: 600px;
+  --break-medium: 1200px;
+  --break-large: 1800px;
 }
 
 * {
