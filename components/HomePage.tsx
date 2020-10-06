@@ -79,7 +79,7 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
         </div>
       </section>
 
-      {page.blocks.map((block) => (
+      {page.blocks?.map((block) => (
         <section key={block.title}>
           <h2>{block.title}</h2>
 
