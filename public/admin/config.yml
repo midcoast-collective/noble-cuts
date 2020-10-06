@@ -19,8 +19,9 @@ collections:
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Featured Image, name: thumbnail, widget: image }
+      - { label: Price per lb, name: priceperpound, widget: string }
       - {
-          label: Price,
+          label: Price in Cart,
           name: price,
           widget: number,
           default: 500.00,
