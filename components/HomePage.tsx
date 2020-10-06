@@ -9,7 +9,7 @@ import HeroImage from "../public/images/home-page-hero.jpg";
 
 type HomePageProps = {
   products: Product[];
-  page: Page;
+  page: Partial<Page>;
 };
 
 const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {

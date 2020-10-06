@@ -8,12 +8,19 @@ export type Block = {
   photo: string;
 };
 
+export type FAQ = {
+  question: string;
+  answer: string;
+};
+
 export type Page = {
   title: string;
-  thumbnail: string;
+  photo: string;
   intro: string;
+  outro: string;
   id: string;
   blocks: Block[];
+  faqs: FAQ[];
 };
 
 const pagesDirectory = path.join(process.cwd(), "content/pages");
