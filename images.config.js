@@ -5,16 +5,16 @@ module.exports = {
   },
   types: {
     hero: {
-      sizes: [600, 1200, 1800],
-      breakpoints: [600, 1200],
+      sizes: [754, 1508, 2262],
+      breakpoints: [754, 1508],
     },
     block: {
-      sizes: [600, 1200],
-      breakpoints: [600],
+      sizes: [754, 1508],
+      breakpoints: [754],
     },
     product: {
       sizes: [200, 400],
-      breakpoints: [600],
+      breakpoints: [754],
     },
   },
 };

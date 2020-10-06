@@ -30,7 +30,7 @@ const AboutPage = ({ page }: Readonly<AboutPageProps>): JSX.Element => (
       <div className="wrap">
         <h2>FAQs</h2>
         {page.faqs?.map((faq) => (
-          <div className="blurb">
+          <div className="blurb" key={faq.question}>
             <h3>{faq.question}</h3>
             <p>{faq.answer}</p>
           </div>
