@@ -1,5 +1,5 @@
 import React from "react";
-//import Img from "react-optimized-image";
+import Img from "react-optimized-image";
 
 import { Page } from "../api/getPagesData";
 
@@ -17,20 +17,26 @@ const AboutPage = ({ page }: Readonly<AboutPageProps>): JSX.Element => (
       </div>
 
       <div className="wrap">
-        {/* <YouTube
-            containerClassName="video-container"
-            videoId="cB2WAR017jk"
-            onReady={() => setVideoIsVisible(true)}
-          /> */}
+        <Img
+          alt={page.title}
+          src={require(`../public/images/uploads/${page.photo}`)}
+          loading="lazy"
+          type="block"
+        />
       </div>
     </section>
 
-    {page.faqs?.map((faq) => (
-      <section key={faq.question}>
-        <h2>{faq.question}</h2>
-        <p className="blurb">{faq.answer}</p>
-      </section>
-    ))}
+    <section>
+      <div className="wrap">
+        <h2>FAQs</h2>
+        {page.faqs?.map((faq) => (
+          <div className="blurb">
+            <h3>{faq.question}</h3>
+            <p>{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </section>
   </main>
 );
 
