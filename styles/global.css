@@ -134,12 +134,18 @@ nav.mobile-only .logo {
 }
 
 .hero {
-  height: 600px;
+  height: 400px;
   margin: auto;
   max-width: var(--break-large);
   overflow: hidden;
   position: relative;
   width: 100%;
+}
+
+@media (min-width: 754px) {
+  .hero {
+    height: 600px;
+  }
 }
 
 .hero img {
