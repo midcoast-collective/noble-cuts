@@ -14,19 +14,23 @@ oauth2.accessToken = IS_PROD
 exports.handler = function (event, context, callback) {
   const checkoutApi = new SquareConnect.CheckoutApi();
   const idempotencyKey = crypto.randomBytes(48).toString("base64");
+
+  console.log({ event });
+
   const lineItems =
-    event &&
-    event.body &&
-    event.body.map((productInCart) => [
-      {
-        name: productInCart.title,
-        quantity: `${productInCart.quantity}`,
-        base_price_money: {
-          amount: parseInt(productInCart.price),
-          currency: "USD",
+    (event &&
+      event.body &&
+      event.body.map((productInCart) => [
+        {
+          name: productInCart.title,
+          quantity: `${productInCart.quantity}`,
+          base_price_money: {
+            amount: parseInt(productInCart.price),
+            currency: "USD",
+          },
         },
-      },
-    ]);
+      ])) ||
+    [];
 
   const checkoutRequest = {
     idempotency_key: idempotencyKey,
