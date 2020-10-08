@@ -28,16 +28,15 @@ const Cart = (): JSX.Element => {
   );
 
   function handleCheckout() {
-    console.log("Clicked Checkout");
     axios
       .post(
         `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
         cart
       )
-      .then(function (response) {
+      .then((response) => {
         console.log(response);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   }

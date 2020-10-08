@@ -4,16 +4,18 @@ const crypto = require("crypto");
 const SquareClient = SquareConnect.ApiClient.instance;
 const IS_PROD = false;
 
-SquareClient.basePath = "https://connect.squareupsandbox.com";
+SquareClient.basePath = IS_PROD
+  ? "https://connect.squareup.com"
+  : "https://connect.squareupsandbox.com";
 
 const oauth2 = SquareClient.authentications["oauth2"];
 oauth2.accessToken = IS_PROD
   ? process.env.PROD_ACCESS_TOKEN
   : process.env.SANDBOX_ACCESS_TOKEN;
 
-exports.handler = function (event, context, callback) {
+exports.handler = async function (event, context, callback) {
   const checkoutApi = new SquareConnect.CheckoutApi();
-  const idempotencyKey = crypto.randomBytes(48).toString("base64");
+  const idempotencyKey = crypto.randomBytes(23).toString("hex");
   const cart = JSON.parse(event.body);
 
   console.log({ cart });
@@ -45,20 +47,19 @@ exports.handler = function (event, context, callback) {
     merchant_support_email: "nate@midcoast.io",
   };
 
-  checkoutApi
-    .createCheckout(
+  try {
+    const response = await checkoutApi.createCheckout(
       IS_PROD ? process.env.PROD_LOCATION_ID : process.env.SANDBOX_LOCATION_ID,
       checkoutRequest
-    )
-    .then((res) => {
-      console.log(result.checkout);
-      callback(null, {
-        statusCode: 200,
-        body: res && res.checkout && res.checkout.checkout_page_url,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      callback(err);
+    );
+    console.log(result.checkout);
+    callback(null, {
+      statusCode: 200,
+      body:
+        response && response.checkout && response.checkout.checkout_page_url,
     });
+  } catch (err) {
+    console.log(err);
+    callback(err);
+  }
 };
