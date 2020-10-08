@@ -30,6 +30,8 @@ exports.handler = function (event, context, callback) {
       },
     ]) || [];
 
+  console.log({ lineItems });
+
   const checkoutRequest = {
     idempotency_key: idempotencyKey,
     order: {
