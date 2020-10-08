@@ -1,4 +1,5 @@
 import React from "react";
+import Img from "react-optimized-image";
 
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
@@ -20,15 +21,26 @@ const Cart = (): JSX.Element => {
       cart={cart}
       cartIsUpdating={cartIsUpdating}
     >
-      <div className="wrap">
-        {cart && cart.length > 0
-          ? cart.map((product, ind) => (
-              <div key={product.title + ind}>
-                {product.title} - {product.quantity}
-              </div>
-            ))
-          : "There are no items in your cart."}
-      </div>
+      <main>
+        <section>
+          <h2>Cart</h2>
+          <div className="wrap">
+            <div className="cart-container">
+              {cart && cart.length > 0
+                ? cart.map((product) => (
+                    <div key={product.title} className="cart-container-item">
+                      <Img
+                        src={require(`../public/images/uploads/${product.thumbnail}`)}
+                        type="product"
+                      />
+                      {product.title} - {product.quantity}
+                    </div>
+                  ))
+                : "There are no items in your cart."}
+            </div>
+          </div>
+        </section>
+      </main>
     </Layout>
   );
 };

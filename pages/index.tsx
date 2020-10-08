@@ -37,7 +37,12 @@ const Index = ({
       cart={cart}
       cartIsUpdating={cartIsUpdating}
     >
-      <HomePage products={products} page={page} addProduct={addProduct} />
+      <HomePage
+        addProduct={addProduct}
+        cart={cart}
+        products={products}
+        page={page}
+      />
     </Layout>
   );
 };

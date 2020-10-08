@@ -8,15 +8,17 @@ import { Icon } from "@components/index";
 import HeroImage from "../public/images/home-page-hero.jpg";
 
 type HomePageProps = {
+  addProduct: (product: Product) => void;
+  cart?: Product[];
   products: Product[];
   page: Partial<Page>;
-  addProduct: (product: Product) => void;
 };
 
 const HomePage = ({
+  addProduct,
+  cart = [],
   products,
   page,
-  addProduct,
 }: Readonly<HomePageProps>): JSX.Element => {
   React.useEffect(() => {
     // Redirect to Netlify CMS Admin if coming from login view
@@ -50,22 +52,36 @@ const HomePage = ({
 
         <div className="wrap">
           <div className="products">
-            {products.map((product) => (
-              <div className="product" key={product.id}>
-                <h3>{product.title}</h3>
-                <Img
-                  src={require(`../public/images/uploads/${product.thumbnail}`)}
-                  type="product"
-                />
-                <p>
-                  <strong>{`${product.priceperpound}/lb`}</strong>
-                </p>
-                <p>{product.description}</p>
-                <button className="button" onClick={() => addProduct(product)}>
-                  Add to Cart
-                </button>
-              </div>
-            ))}
+            {products.map((product) => {
+              const cartProduct = cart.find(
+                (productInCart) => productInCart.title === product.title
+              );
+              const cartProductQuantity = cartProduct
+                ? cartProduct.quantity
+                : 0;
+
+              return (
+                <div className="product" key={product.id}>
+                  <h3>{product.title}</h3>
+                  <Img
+                    src={require(`../public/images/uploads/${product.thumbnail}`)}
+                    type="product"
+                  />
+                  <p>
+                    <strong>{`${product.priceperpound}/lb`}</strong>
+                  </p>
+                  <p>{product.description}</p>
+                  <button
+                    className="button"
+                    onClick={() => addProduct(product)}
+                  >
+                    {cartProductQuantity < 1
+                      ? `Add to Cart`
+                      : `${cartProductQuantity} Added to Cart`}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
