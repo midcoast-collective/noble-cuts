@@ -19,16 +19,17 @@ exports.handler = function (event, context, callback) {
   console.log({ cart });
 
   const lineItems =
-    cart.map((productInCart) => [
-      {
+    cart.map((productInCart) => {
+      return {
         name: productInCart.title,
         quantity: `${productInCart.quantity}`,
         base_price_money: {
           amount: parseInt(productInCart.price),
           currency: "USD",
         },
-      },
-    ]) || [];
+        note: productInCart.description,
+      };
+    }) || [];
 
   console.log({ lineItems });
 
