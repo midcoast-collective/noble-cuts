@@ -89,13 +89,36 @@ nav {
   display: flex;
   justify-content: space-between;
   margin: auto;
-  max-width: 480px;
+  max-width: 600px;
   width: 100%;
+}
+
+nav.mobile-only {
+  justify-content: center;
+  padding-top: var(--rhythm);
+}
+
+nav.mobile-only > * {
+  margin: 0 calc(var(--rhythm) / 2);
+}
+
+nav.desktop-only {
+  display: none;
+}
+
+@media (min-width: 754px) {
+  nav.mobile-only {
+    display: none;
+  }
+
+  nav.desktop-only {
+    display: flex;
+  }
 }
 
 nav a {
   color: var(--color-default);
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-base);
   font-weight: var(--font-weight-normal);
   line-height: 1;
   text-decoration: none;
@@ -104,6 +127,10 @@ nav a {
 .logo {
   max-width: 220px;
   width: 100%;
+}
+
+nav.mobile-only .logo {
+  max-width: 140px;
 }
 
 .hero {
@@ -249,7 +276,17 @@ footer {
 }
 
 footer nav {
-  max-width: 300px;
+  justify-content: center;
+}
+
+footer nav > * {
+  margin: 0 calc(var(--rhythm) / 2);
+}
+
+@media (min-width: 754px) {
+  footer nav > * {
+    margin: 0 var(--rhythm);
+  }
 }
 
 footer nav a {
@@ -259,6 +296,12 @@ footer nav a {
 
 footer .logo {
   margin: calc(var(--rhythm) + 1rem) 0 var(--rhythm);
+}
+
+@media (max-width: 754px) {
+  footer .logo {
+    max-width: 140px;
+  }
 }
 
 .video-container {
@@ -287,6 +330,13 @@ footer .logo {
   position: fixed;
   right: var(--rhythm);
   top: var(--rhythm);
+}
+
+@media (min-width: 754px) {
+  .cart {
+    right: calc(var(--rhythm) / 2);
+    top: calc(var(--rhythm) / 2);
+  }
 }
 
 .cart span {
@@ -319,14 +369,50 @@ footer .logo {
   }
 }
 
-.cart-container img {
-  width: 80px;
-  height: auto;
+.cart-section {
+  min-height: 50vh;
 }
 
-.cart-container-item {
-  display: flex;
+.cart-container {
+  border-top: 1px solid var(--color-mute);
+}
+
+.cart-container img {
+  height: auto;
+  width: 100px;
+}
+
+.cart-item {
   align-items: center;
+  border-bottom: 1px solid var(--color-mute);
+  display: grid;
+  grid-template-columns: 2fr 2fr 4fr 2fr;
   justify-content: space-between;
-  margin: var(--rhythm) 0;
+  padding: var(--rhythm) 0;
+}
+
+.cart-item button {
+  background-color: transparent;
+  border: 0;
+  color: var(--color-default);
+  font-family: sans-serif;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+}
+
+.cart-item-description {
+  display: block;
+  font-size: var(--font-size-small);
+}
+
+.cart-item-actions {
+  text-align: right;
+}
+
+.empty-cart-message {
+  padding: var(--rhythm) 0;
+}
+
+.cart-actions {
+  padding-top: var(--rhythm);
 }

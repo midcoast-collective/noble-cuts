@@ -15,13 +15,20 @@ const Footer = () => (
       <Link href="/#products">
         <a>SHOP</a>
       </Link>
+      <Link href="/cart/">
+        <a>CART</a>
+      </Link>
     </nav>
 
     <div className="logo">
       <Icon.Logo fill="#ffffff" />
     </div>
 
-    <p>&copy;{new Date().getFullYear()} Noble Cuts. All rights reserved.</p>
+    <p>
+      <small>
+        &copy;{new Date().getFullYear()} Noble Cuts. All rights reserved.
+      </small>
+    </p>
   </footer>
 );
 

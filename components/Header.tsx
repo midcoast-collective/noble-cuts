@@ -8,7 +8,10 @@ type HeaderProps = {};
 const Header = ({}: Readonly<HeaderProps>) => {
   return (
     <header>
-      <nav>
+      <nav className="desktop-only">
+        <Link href="/">
+          <a>HOME</a>
+        </Link>
         <Link href="/about/">
           <a>ABOUT</a>
         </Link>
@@ -19,6 +22,32 @@ const Header = ({}: Readonly<HeaderProps>) => {
         </Link>
         <Link href="/#products">
           <a>SHOP</a>
+        </Link>
+        <Link href="/cart/">
+          <a>CART</a>
+        </Link>
+      </nav>
+
+      <nav className="mobile-only">
+        <Link href="/">
+          <a className="logo">
+            <Icon.Logo fill="#10103e" />
+          </a>
+        </Link>
+      </nav>
+
+      <nav className="mobile-only">
+        <Link href="/">
+          <a>HOME</a>
+        </Link>
+        <Link href="/about/">
+          <a>ABOUT</a>
+        </Link>
+        <Link href="/#products">
+          <a>SHOP</a>
+        </Link>
+        <Link href="/cart/">
+          <a>CART</a>
         </Link>
       </nav>
     </header>

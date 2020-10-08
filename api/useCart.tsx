@@ -47,8 +47,69 @@ export function useCart() {
   }
 
   function removeProduct(product: Product): void {
-    console.log("Remove item!");
+    setCartIsUpdating(true);
+
+    setTimeout(() => {
+      const existingProduct = cart.filter(
+        (productInCart) => productInCart.title === product.title
+      )[0];
+
+      if (existingProduct.quantity > 0) {
+        existingProduct.quantity -= 1;
+
+        localForage
+          .setItem(CART, [
+            ...cart.filter(
+              (productInCart) => productInCart.title !== existingProduct.title
+            ),
+            existingProduct,
+          ])
+          .then((value: unknown) => {
+            setCart(value as Product[]);
+          });
+      } else {
+        localForage
+          .setItem(CART, [
+            ...cart.filter(
+              (productInCart) => productInCart.title !== existingProduct.title
+            ),
+          ])
+          .then((value: unknown) => {
+            setCart(value as Product[]);
+          });
+      }
+
+      setCartIsUpdating(false);
+    }, 200);
   }
 
-  return [cart, cartIsUpdating, addProduct, removeProduct] as const;
+  function removeAllProduct(product: Product): void {
+    setCartIsUpdating(true);
+
+    setTimeout(() => {
+      const existingProduct = cart.filter(
+        (productInCart) => productInCart.title === product.title
+      )[0];
+
+      localForage
+        .setItem(CART, [
+          ...cart.filter(
+            (productInCart) => productInCart.title !== existingProduct.title
+          ),
+        ])
+        .then((value: unknown) => {
+          setCart(value as Product[]);
+        });
+
+      setCartIsUpdating(false);
+    }, 200);
+  }
+
+  return [
+    cart,
+    cartIsUpdating,
+    addProduct,
+    removeProduct,
+    removeAllProduct,
+  ] as const;
 }
