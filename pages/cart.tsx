@@ -1,6 +1,7 @@
 import React from "react";
 import Img from "react-optimized-image";
 import Link from "next/link";
+import axios from "axios";
 
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
@@ -27,7 +28,16 @@ const Cart = (): JSX.Element => {
   );
 
   function handleCheckout() {
-    // `/.netlify/functions/`
+    axios
+      .get(
+        `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink.js`
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
@@ -83,7 +93,9 @@ const Cart = (): JSX.Element => {
               ) : (
                 <p className="empty-cart-message">
                   Looks like your cart is empty...{" "}
-                  <Link href="/#products">Shop</Link>
+                  <Link href="/#products">
+                    <a>Shop</a>
+                  </Link>
                 </p>
               )}
             </div>

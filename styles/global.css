@@ -332,13 +332,6 @@ footer .logo {
   top: var(--rhythm);
 }
 
-@media (min-width: 754px) {
-  .cart {
-    right: calc(var(--rhythm) / 2);
-    top: calc(var(--rhythm) / 2);
-  }
-}
-
 .cart span {
   color: var(--color-white);
   font-family: sans-serif;
