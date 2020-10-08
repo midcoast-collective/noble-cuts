@@ -28,8 +28,12 @@ const Cart = (): JSX.Element => {
   );
 
   function handleCheckout() {
+    console.log("Clicked Checkout");
     axios
-      .get(`https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`)
+      .post(
+        `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
+        cart
+      )
       .then(function (response) {
         console.log(response);
       })
@@ -120,7 +124,7 @@ const Cart = (): JSX.Element => {
 
             <div className="cart-actions">
               {cart && cart.length > 0 ? (
-                <button className="button" onClick={() => handleCheckout}>
+                <button className="button" onClick={handleCheckout}>
                   Check Out {moneyFormatter.format(cartTotal)}
                 </button>
               ) : null}
