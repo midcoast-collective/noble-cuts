@@ -54,7 +54,7 @@ export function useCart() {
         (productInCart) => productInCart.title === product.title
       )[0];
 
-      if (existingProduct.quantity > 0) {
+      if (existingProduct.quantity > 1) {
         existingProduct.quantity -= 1;
 
         localForage
