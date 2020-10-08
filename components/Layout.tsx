@@ -13,6 +13,7 @@ type LayoutProps = {
   image?: string;
   cart?: Product[];
   cartIsUpdating?: boolean;
+  showCart?: boolean;
 };
 
 const Layout = ({
@@ -23,6 +24,7 @@ const Layout = ({
   image = "/images/og-image.png",
   cart = [],
   cartIsUpdating = false,
+  showCart = true,
 }: Readonly<LayoutProps>): JSX.Element => {
   let quantity = 0;
 
@@ -101,12 +103,16 @@ const Layout = ({
 
       <Footer />
 
-      <Link href="/cart">
-        <div className="cart">
-          <span className={cartIsUpdating ? "isLoading" : ""}>{quantity}</span>
-          <Icon.Cart />
-        </div>
-      </Link>
+      {showCart ? (
+        <Link href="/cart">
+          <div className="cart">
+            <span className={cartIsUpdating ? "isLoading" : ""}>
+              {quantity}
+            </span>
+            <Icon.Cart />
+          </div>
+        </Link>
+      ) : null}
     </>
   );
 };

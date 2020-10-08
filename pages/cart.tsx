@@ -28,17 +28,17 @@ const Cart = (): JSX.Element => {
   );
 
   function handleCheckout() {
-    axios
-      .post(
-        `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
-        cart
-      )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .post(
+    //     `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
+    //     cart
+    //   )
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
   return (
@@ -48,6 +48,7 @@ const Cart = (): JSX.Element => {
       url={""}
       cart={cart}
       cartIsUpdating={cartIsUpdating}
+      showCart={false}
     >
       <main>
         <section className="cart-section">
@@ -73,7 +74,9 @@ const Cart = (): JSX.Element => {
                         </span>
                       </div>
                       <div>
-                        <span>{product.title}</span>
+                        <span>
+                          <strong>{product.title}</strong>
+                        </span>
                         <span className="cart-item-description">
                           {product.description}
                         </span>
