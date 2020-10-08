@@ -29,9 +29,7 @@ const Cart = (): JSX.Element => {
 
   function handleCheckout() {
     axios
-      .get(
-        `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink.js`
-      )
+      .get(`https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`)
       .then(function (response) {
         console.log(response);
       })

@@ -47,7 +47,10 @@ exports.handler = function (event, context, callback) {
     )
     .then((res) => {
       console.log(result.checkout);
-      callback(res && res.checkout && res.checkout.checkout_page_url);
+      callback(null, {
+        statusCode: 200,
+        body: res && res.checkout && res.checkout.checkout_page_url,
+      });
     })
     .catch((err) => {
       console.log(err);
