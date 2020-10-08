@@ -10,9 +10,14 @@ import HeroImage from "../public/images/home-page-hero.jpg";
 type HomePageProps = {
   products: Product[];
   page: Partial<Page>;
+  addProduct: (product: Product) => void;
 };
 
-const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
+const HomePage = ({
+  products,
+  page,
+  addProduct,
+}: Readonly<HomePageProps>): JSX.Element => {
   React.useEffect(() => {
     // Redirect to Netlify CMS Admin if coming from login view
     // TODO: Get this working :(
@@ -53,8 +58,13 @@ const HomePage = ({ products, page }: Readonly<HomePageProps>): JSX.Element => {
                   type="product"
                   loading="lazy"
                 />
+                <p>
+                  <strong>{`${product.priceperpound}/lb`}</strong>
+                </p>
                 <p>{product.description}</p>
-                <button className="button">Add to Cart</button>
+                <button className="button" onClick={() => addProduct(product)}>
+                  Add to Cart
+                </button>
               </div>
             ))}
           </div>

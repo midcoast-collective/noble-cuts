@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import { Layout, HomePage } from "@components/index";
 import { Product, getProductsData } from "../api/getProductsData";
 import { Page, getPagesData } from "../api/getPagesData";
+import { useCart } from "../api/useCart";
 
 declare global {
   interface Window {
@@ -25,11 +26,21 @@ const Index = ({
   title,
   description,
   url,
-}: Readonly<IndexProps>): JSX.Element => (
-  <Layout title={title} description={description} url={url}>
-    <HomePage products={products} page={page} />
-  </Layout>
-);
+}: Readonly<IndexProps>): JSX.Element => {
+  const [cart, cartIsUpdating, addProduct] = useCart();
+
+  return (
+    <Layout
+      title={title}
+      description={description}
+      url={url}
+      cart={cart}
+      cartIsUpdating={cartIsUpdating}
+    >
+      <HomePage products={products} page={page} addProduct={addProduct} />
+    </Layout>
+  );
+};
 
 export default Index;
 

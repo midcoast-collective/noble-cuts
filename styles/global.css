@@ -221,6 +221,7 @@ p.blurb {
   border: 0;
   border-radius: var(--border-radius);
   color: white;
+  cursor: pointer;
   display: block;
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-bold);
@@ -268,4 +269,45 @@ footer .logo {
   position: absolute;
   top: 0;
   width: 100%;
+}
+
+.cart {
+  background-color: var(--color-white);
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+  padding: calc(var(--rhythm) / 2);
+  position: fixed;
+  right: var(--rhythm);
+  top: var(--rhythm);
+}
+
+.cart span {
+  color: var(--color-white);
+  font-family: sans-serif;
+  font-size: 10px;
+  font-weight: var(--font-weight-normal);
+  left: 52%;
+  position: absolute;
+  top: 49%;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+}
+
+.cart span.isLoading {
+  animation: pulse 200ms forwards linear;
+}
+
+@keyframes pulse {
+  from {
+    font-size: 10px;
+  }
+
+  50% {
+    font-size: 15px;
+  }
+
+  to {
+    font-size: 10px;
+  }
 }

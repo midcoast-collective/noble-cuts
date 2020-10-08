@@ -3,20 +3,26 @@ import { GetStaticProps } from "next";
 
 import { Layout, AboutPage } from "@components/index";
 import { Page, getPagesData } from "../api/getPagesData";
+import { useCart } from "../api/useCart";
 
 type AboutProps = {
   page: Partial<Page>;
 };
 
-const About = ({ page }: Readonly<AboutProps>): JSX.Element => (
-  <Layout
-    title="About | Noble Cuts"
-    description={"description"}
-    url={"https://noblecutsmeat.com/about/"}
-  >
-    <AboutPage page={page} />
-  </Layout>
-);
+const About = ({ page }: Readonly<AboutProps>): JSX.Element => {
+  const [cart] = useCart();
+
+  return (
+    <Layout
+      title={`${page.title} | Noble Cuts`}
+      description={page.intro}
+      url={"https://noblecutsmeat.com/about/"}
+      cart={cart}
+    >
+      <AboutPage page={page} />
+    </Layout>
+  );
+};
 
 export default About;
 
