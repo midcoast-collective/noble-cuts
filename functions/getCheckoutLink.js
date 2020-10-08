@@ -12,12 +12,17 @@ const oauth2 = SquareClient.authentications["oauth2"];
 oauth2.accessToken = IS_PROD
   ? process.env.PROD_ACCESS_TOKEN
   : process.env.SANDBOX_ACCESS_TOKEN;
+const APPLICATION_ID = IS_PROD
+  ? process.env.PROD_LOCATION_ID
+  : process.env.SANDBOX_LOCATION_ID;
 
 exports.handler = async function (event, context, callback) {
   const checkoutApi = new SquareConnect.CheckoutApi();
   const idempotencyKey = crypto.randomBytes(23).toString("hex");
   const cart = JSON.parse(event.body);
 
+  console.log("Access Token", process.env.SANDBOX_ACCESS_TOKEN);
+  console.log("Application ID", APPLICATION_ID);
   console.log({ cart });
 
   const lineItems =
@@ -33,8 +38,6 @@ exports.handler = async function (event, context, callback) {
       };
     }) || [];
 
-  console.log({ lineItems });
-
   const checkoutRequest = {
     idempotency_key: idempotencyKey,
     order: {
@@ -49,9 +52,10 @@ exports.handler = async function (event, context, callback) {
 
   try {
     const response = await checkoutApi.createCheckout(
-      IS_PROD ? process.env.PROD_LOCATION_ID : process.env.SANDBOX_LOCATION_ID,
+      APPLICATION_ID,
       checkoutRequest
     );
+
     console.log(result.checkout);
     callback(null, {
       statusCode: 200,
@@ -60,6 +64,7 @@ exports.handler = async function (event, context, callback) {
     });
   } catch (err) {
     console.log(err);
+
     callback(err);
   }
 };
