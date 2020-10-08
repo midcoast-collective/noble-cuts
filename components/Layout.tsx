@@ -72,12 +72,16 @@ const Layout = ({
           content={description}
         />
         <meta key="twitter:image" name="twitter:image" content={url + image} />
-
         <link
           key="google-fonts"
           href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;800&display=swap"
           rel="stylesheet"
         />
+        <script
+          key="netlify"
+          src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+        ></script>
+
         <script
           key="square"
           type="text/javascript"
@@ -85,13 +89,8 @@ const Layout = ({
         ></script>
         {/* <script
           key="square"
-          type="text/javascript"
           src="https://js.squareup.com/v2/paymentform"
         ></script> */}
-        <script
-          key="netlify"
-          src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-        ></script>
       </Head>
 
       <h1 className="sr-only">{title}</h1>
