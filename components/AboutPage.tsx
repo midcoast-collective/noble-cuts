@@ -20,7 +20,6 @@ const AboutPage = ({ page }: Readonly<AboutPageProps>): JSX.Element => (
         <Img
           alt={page.title}
           src={require(`../public/images/uploads/${page.photo}`)}
-          loading="lazy"
           type="block"
         />
       </div>

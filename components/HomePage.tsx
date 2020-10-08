@@ -38,7 +38,7 @@ const HomePage = ({
   return (
     <main>
       <div className="hero">
-        <Img alt="Noble Cuts" src={HeroImage} type="hero" loading="eager" />
+        <Img alt="Noble Cuts" src={HeroImage} type="hero" />
       </div>
 
       <section className="gray" id="products">
@@ -56,7 +56,6 @@ const HomePage = ({
                 <Img
                   src={require(`../public/images/uploads/${product.thumbnail}`)}
                   type="product"
-                  loading="lazy"
                 />
                 <p>
                   <strong>{`${product.priceperpound}/lb`}</strong>
@@ -101,7 +100,6 @@ const HomePage = ({
             <Img
               alt={block.title}
               src={require(`../public/images/uploads/${block.photo}`)}
-              loading="lazy"
               type="block"
             />
           </div>
