@@ -26,6 +26,10 @@ const Cart = (): JSX.Element => {
       (cartTotal += productInCart.quantity * productInCart.price)
   );
 
+  function handleCheckout() {
+    // `/.netlify/functions/`
+  }
+
   return (
     <Layout
       title={"Cart | Noble Cuts"}
@@ -106,7 +110,7 @@ const Cart = (): JSX.Element => {
 
             <div className="cart-actions">
               {cart && cart.length > 0 ? (
-                <button className="button">
+                <button className="button" onClick={() => handleCheckout}>
                   Check Out {moneyFormatter.format(cartTotal)}
                 </button>
               ) : null}
