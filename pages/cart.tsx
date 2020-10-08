@@ -37,6 +37,7 @@ const Cart = (): JSX.Element => {
       <main>
         <section className="cart-section">
           <h2>Cart</h2>
+
           <div className="wrap">
             <div className="cart-container">
               {cart && cart.length > 0 ? (
@@ -81,6 +82,26 @@ const Cart = (): JSX.Element => {
                   <Link href="/#products">Shop</Link>
                 </p>
               )}
+            </div>
+          </div>
+
+          <div className="wrap">
+            <div className="cart-explanation">
+              <p>
+                Delivery available to these Missouri counties for $25 fee:
+                Caldwell, Livingston, Davies, Grundy, Carroll, Ray, Clay,
+                Platte, Clinton, Buchanan, Lafayette, Jackson, Saline, Dekalb
+                and Andrew.
+              </p>
+              <p>
+                Any counties outside of our delivery area, please contact us for
+                a delivery quote. You may also schedule to pickup your order at
+                our farm by contacting us. If you choose to pick up your order,
+                it must be picked within 7 days of completion.
+              </p>
+              <p>
+                For shipping requests, please contact us for a custom quote.
+              </p>
             </div>
 
             <div className="cart-actions">
