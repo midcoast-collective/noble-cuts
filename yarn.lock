@@ -5313,6 +5313,11 @@ react-refresh@0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
+react-square-payment-form@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-square-payment-form/-/react-square-payment-form-0.7.2.tgz#b64e9165b67554fad258dcde3d8d64f9327a5533"
+  integrity sha512-y40LOnwi24vVy2ygMJMHP4OnfnynQOMMDOo0bKpLZRPi0z6UzB+HI4eqF+n1a/627ztS/ZapTvjGXy2fq8z4yA==
+
 react-youtube@^7.12.0:
   version "7.12.0"
   resolved "https://registry.yarnpkg.com/react-youtube/-/react-youtube-7.12.0.tgz#632b770556fd415179093e4a6eeea36d109fb3d4"

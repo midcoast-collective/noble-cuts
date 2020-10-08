@@ -1,10 +1,38 @@
 import React from "react";
 import Img from "react-optimized-image";
 import Link from "next/link";
-import axios from "axios";
+import {
+  SquarePaymentForm,
+  CreditCardNumberInput,
+  CreditCardExpirationDateInput,
+  CreditCardPostalCodeInput,
+  CreditCardCVVInput,
+  CreditCardSubmitButton,
+} from "react-square-payment-form";
+// import axios from "axios";
 
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
+
+type SqContact = {
+  familyName: string;
+  givenName: string;
+  email: string;
+  country: string;
+  countryName?: string;
+  region?: string;
+  city: string;
+  addressLines: string[];
+  postalCode: string;
+  phone?: string;
+};
+
+type SqVerificationDetails = {
+  billingContact: SqContact;
+  amount?: string;
+  currencyCode?: string;
+  intent?: string;
+};
 
 const moneyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -27,7 +55,23 @@ const Cart = (): JSX.Element => {
       (cartTotal += productInCart.quantity * productInCart.price)
   );
 
-  function handleCheckout() {
+  function cardNonceResponseReceived(
+    errors: unknown | null,
+    nonce: string,
+    cardData: unknown,
+    buyerVerificationToken?: string
+  ) {
+    if (errors) {
+      console.log(errors); // TODO: Handle Errors
+    }
+
+    alert(
+      "nonce created: " +
+        nonce +
+        ", buyerVerificationToken: " +
+        buyerVerificationToken
+    );
+
     // axios
     //   .post(
     //     `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
@@ -39,6 +83,24 @@ const Cart = (): JSX.Element => {
     //   .catch((error) => {
     //     console.log(error);
     //   });
+  }
+
+  function createVerificationDetails(): SqVerificationDetails {
+    return {
+      amount: `${cartTotal}`,
+      currencyCode: "USD",
+      intent: "CHARGE",
+      billingContact: {
+        familyName: "",
+        givenName: "",
+        email: "",
+        country: "US",
+        city: "",
+        addressLines: [""],
+        postalCode: "",
+        phone: "",
+      },
+    };
   }
 
   return (
@@ -124,12 +186,59 @@ const Cart = (): JSX.Element => {
               </p>
             </div>
 
-            <div className="cart-actions">
-              {cart && cart.length > 0 ? (
-                <button className="button" onClick={handleCheckout}>
+            <div className="forms">
+              <form className="customer">
+                <label>
+                  First Name
+                  <input type="text" value={""} />
+                </label>
+                <label>
+                  Last Name
+                  <input type="text" value={""} />
+                </label>
+                <label>
+                  Email
+                  <input type="email" value={""} />
+                </label>
+                <label>
+                  Address
+                  <input type="text" value={""} />
+                </label>
+                <label>
+                  Phone
+                  <input type="tel" value={""} />
+                </label>
+              </form>
+
+              {/* @ts-ignore */}
+              <SquarePaymentForm
+                // apiWrapper="some-string???" TODO: Figure out what this is
+                formId="NobleCheckoutForm"
+                sandbox={true}
+                applicationId={"sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"}
+                locationId={"L832Y9Z6HA8PE"}
+                cardNonceResponseReceived={cardNonceResponseReceived}
+                createVerificationDetails={createVerificationDetails}
+              >
+                <fieldset className="sq-fieldset">
+                  <CreditCardNumberInput />
+                  <div className="sq-form-third">
+                    <CreditCardExpirationDateInput />
+                  </div>
+
+                  <div className="sq-form-third">
+                    <CreditCardPostalCodeInput />
+                  </div>
+
+                  <div className="sq-form-third">
+                    <CreditCardCVVInput />
+                  </div>
+                </fieldset>
+
+                <CreditCardSubmitButton>
                   Check Out {moneyFormatter.format(cartTotal)}
-                </button>
-              ) : null}
+                </CreditCardSubmitButton>
+              </SquarePaymentForm>
             </div>
           </div>
         </section>

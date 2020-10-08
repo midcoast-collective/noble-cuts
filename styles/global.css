@@ -431,3 +431,21 @@ footer .logo {
 .cart-explanation {
   padding-top: var(--rhythm);
 }
+
+.customer {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer label {
+  color: #373f4a;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: uppercase;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.customer input {
+  display: block;
+}
