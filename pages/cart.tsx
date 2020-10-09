@@ -188,26 +188,31 @@ const Cart = (): JSX.Element => {
 
             <div className="forms">
               <form className="customer">
-                <label>
-                  First Name
-                  <input type="text" value={""} />
-                </label>
-                <label>
-                  Last Name
-                  <input type="text" value={""} />
-                </label>
-                <label>
-                  Email
-                  <input type="email" value={""} />
-                </label>
-                <label>
-                  Address
-                  <input type="text" value={""} />
-                </label>
-                <label>
-                  Phone
-                  <input type="tel" value={""} />
-                </label>
+                <fieldset className="sq-fieldset">
+                  <div className="sq-form-half">
+                    <label>
+                      First Name
+                      <input type="text" value={""} />
+                    </label>
+                    <label>
+                      Last Name
+                      <input type="text" value={""} />
+                    </label>
+                  </div>
+
+                  <label>
+                    Email
+                    <input type="email" value={""} />
+                  </label>
+                  <label>
+                    Address
+                    <input type="text" value={""} />
+                  </label>
+                  <label>
+                    Phone
+                    <input type="tel" value={""} />
+                  </label>
+                </fieldset>
               </form>
 
               {/* @ts-ignore */}
