@@ -55,6 +55,12 @@ const Cart = (): JSX.Element => {
       (cartTotal += productInCart.quantity * productInCart.price)
   );
 
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [address, setAddress] = React.useState("");
+
   function cardNonceResponseReceived(
     errors: unknown | null,
     nonce: string,
@@ -91,14 +97,14 @@ const Cart = (): JSX.Element => {
       currencyCode: "USD",
       intent: "CHARGE",
       billingContact: {
-        familyName: "",
-        givenName: "",
-        email: "",
+        familyName: lastName,
+        givenName: firstName,
+        email: email,
         country: "US",
         city: "",
-        addressLines: [""],
+        addressLines: [address],
         postalCode: "",
-        phone: "",
+        phone: phone,
       },
     };
   }
@@ -192,25 +198,45 @@ const Cart = (): JSX.Element => {
                   <div className="sq-form-half">
                     <label>
                       First Name
-                      <input type="text" value={""} />
+                      <input
+                        type="text"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.currentTarget.value)}
+                      />
                     </label>
                     <label>
                       Last Name
-                      <input type="text" value={""} />
+                      <input
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.currentTarget.value)}
+                      />
                     </label>
                   </div>
 
                   <label>
                     Email
-                    <input type="email" value={""} />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.currentTarget.value)}
+                    />
                   </label>
                   <label>
                     Address
-                    <input type="text" value={""} />
+                    <input
+                      type="text"
+                      value={address}
+                      onChange={(e) => setAddress(e.currentTarget.value)}
+                    />
                   </label>
                   <label>
                     Phone
-                    <input type="tel" value={""} />
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.currentTarget.value)}
+                    />
                   </label>
                 </fieldset>
               </form>
