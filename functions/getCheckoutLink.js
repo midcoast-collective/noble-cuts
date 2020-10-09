@@ -45,7 +45,7 @@ exports.handler = async function (event, context, callback) {
       };
     }) || [];
 
-  const requestBody = paymentsApi.CreatePaymentRequest(
+  const requestBody = new SquareConnect.CreatePaymentRequest(
     APPLICATION_ID,
     {
       source_id: nonce,
