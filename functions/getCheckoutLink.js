@@ -22,7 +22,7 @@ exports.handler = async function (event, context, callback) {
   const idempotencyKey = crypto.randomBytes(23).toString("hex");
 
   const data = JSON.parse(event.body);
-  const { cart, nonce, buyerVerificationToken } = data
+  const { cart, nonce, buyerVerificationToken, email, address } = data
 
   console.log("Access Token", process.env.SANDBOX_ACCESS_TOKEN);
   console.log("Application ID", LOCATION_ID);
