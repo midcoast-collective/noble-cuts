@@ -80,7 +80,8 @@ const Cart = (): JSX.Element => {
 
     axios
       .post(
-        `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
+        // `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
+        `https://localhost:8888/.netlify/functions/getCheckoutLink`,
         {
           cart,
           nonce,

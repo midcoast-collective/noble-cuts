@@ -21,8 +21,8 @@ exports.handler = async function (event, context, callback) {
   const checkoutApi = new SquareConnect.PaymentsApi();
   const idempotencyKey = crypto.randomBytes(23).toString("hex");
 
-  const data = JSON.parse(event.body);
-  const { cart, nonce, buyerVerificationToken, email, address } = data
+  // const data = JSON.parse(event.body);
+  const { cart, nonce, buyerVerificationToken, email, address } = event.body
 
   console.log("Access Token", process.env.SANDBOX_ACCESS_TOKEN);
   console.log("Application ID", LOCATION_ID);
