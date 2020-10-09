@@ -9,7 +9,7 @@ import {
   CreditCardCVVInput,
   CreditCardSubmitButton,
 } from "react-square-payment-form";
-// import axios from "axios";
+import axios from "axios";
 
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
@@ -71,24 +71,30 @@ const Cart = (): JSX.Element => {
       console.log(errors); // TODO: Handle Errors
     }
 
-    alert(
+    console.log(
       "nonce created: " +
         nonce +
         ", buyerVerificationToken: " +
         buyerVerificationToken
     );
 
-    // axios
-    //   .post(
-    //     `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
-    //     cart
-    //   )
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios
+      .post(
+        `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
+        {
+          cart,
+          nonce,
+          buyerVerificationToken,
+          email,
+          address
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function createVerificationDetails(): SqVerificationDetails {
