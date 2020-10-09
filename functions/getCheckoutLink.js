@@ -17,8 +17,8 @@ const LOCATION_ID = IS_PROD
   ? process.env.PROD_LOCATION_ID
   : process.env.SANDBOX_LOCATION_ID;
 const APPLICATION_ID = IS_PROD
-  ? "sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"
-  : "sq0idp-2VSnO9Xmxpkajj6zTS1MoA";
+  ? "sq0idp-2VSnO9Xmxpkajj6zTS1MoA"
+  : "sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg";
 
 exports.handler = async function (event, context, callback) {
   const checkoutApi = new SquareConnect.PaymentsApi();
