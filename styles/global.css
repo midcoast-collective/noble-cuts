@@ -506,3 +506,12 @@ footer .logo {
     width: calc(50% - (var(--rhythm) / 2));
   }
 }
+
+.sq-creditcard,
+.sq-creditcard:hover {
+  background-color: var(--color-secondary) !important;
+}
+
+.sq-creditcard:active {
+  opacity: 0.5;
+}
