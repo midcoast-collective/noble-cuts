@@ -21,7 +21,7 @@ const APPLICATION_ID = IS_PROD
   ? "sq0idp-2VSnO9Xmxpkajj6zTS1MoA"
   : "sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg";
 
-exports.handler = async function (event, context, callback) {
+exports.handler = function (event, context, callback) {
   const paymentsApi = new SquareConnect.PaymentsApi();
   const idempotencyKey = crypto.randomBytes(23).toString("hex");
 
@@ -67,7 +67,6 @@ exports.handler = async function (event, context, callback) {
 
   paymentsApi.createPayment(requestBody).then((data) => {
     console.log('API called successfully. Returned data: ' + data);
-
     callback(null, {
       statusCode: 200,
       body:
@@ -75,7 +74,6 @@ exports.handler = async function (event, context, callback) {
     });
   }, (error) => {
     console.error(error);
-
     callback(err);
   });
 };
