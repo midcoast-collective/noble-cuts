@@ -1,5 +1,5 @@
 const squareConnect = require("square-connect");
-const crypto = require("crypto");
+const { v4: uuidv4 } = require('uuid');
 
 const squareClient = squareConnect.ApiClient.instance
 const oauth2 = squareClient.authentications["oauth2"];
@@ -13,7 +13,7 @@ exports.handler = async function (event, context, callback) {
   const data = JSON.parse(event.body);
   const { cartTotal, nonce, buyerVerificationToken } = data
 
-  const idempotencyKey = crypto.randomBytes(23).toString('hex');
+  const idempotencyKey = uuidv4();
 
   console.log({ cartTotal, nonce, buyerVerificationToken, idempotencyKey });
 
