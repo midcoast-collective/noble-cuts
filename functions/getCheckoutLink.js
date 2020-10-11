@@ -13,9 +13,9 @@ exports.handler = async function (event, context, callback) {
   const data = JSON.parse(event.body);
   const { cartTotal, nonce, buyerVerificationToken } = data
 
-  console.log({ cartTotal, nonce, buyerVerificationToken });
-
   const idempotencyKey = crypto.randomBytes(23).toString('hex');
+
+  console.log({ cartTotal, nonce, buyerVerificationToken, idempotencyKey });
 
   const paymentsAPI = new squareConnect.PaymentsApi();
   const requestBody = {
