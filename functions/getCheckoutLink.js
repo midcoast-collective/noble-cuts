@@ -13,21 +13,6 @@ exports.handler = async function (event, context, callback) {
 
   console.log({ cartTotal, nonce, buyerVerificationToken });
 
-  // const requestBody = new squareConnect.CreatePaymentRequest(
-  //   APPLICATION_ID,
-  //   {
-  //     source_id: nonce,
-  //     idempotency_key: IDEMPOTENCY_KEY,
-  //     amount_money: "100",
-  //     location_id: LOCATION_ID,
-  //     verification_token: buyerVerificationToken,
-  //     buyer_email_address: email,
-  //     billing_address: address,
-  //     shipping_address: address,
-  //     note: JSON.stringify(cart),
-  //   }
-  // );
-
   const idempotencyKey = crypto.randomBytes(23).toString('hex');
 
   const paymentsAPI = new squareConnect.PaymentsApi();
