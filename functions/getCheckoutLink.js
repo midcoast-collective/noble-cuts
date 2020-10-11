@@ -1,6 +1,9 @@
 const squareConnect = require("square-connect");
 const crypto = require("crypto");
 
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = process.env.SANDBOX_ACCESS_TOKEN;
+
 exports.handler = async function (event, context, callback) {
   const data = JSON.parse(event.body);
   const { cartTotal, nonce, buyerVerificationToken } = data
