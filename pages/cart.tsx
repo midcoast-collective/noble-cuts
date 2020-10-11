@@ -13,6 +13,7 @@ import axios from "axios";
 
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
+import { SqPaymentRequest } from "react-square-payment-form/lib/components/models";
 
 type SqContact = {
   familyName: string;
@@ -82,11 +83,9 @@ const Cart = (): JSX.Element => {
       .post(
         `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
         {
-          cart,
+          cartTotal,
           nonce,
           buyerVerificationToken,
-          email,
-          address
         }
       )
       .then((response) => {
@@ -112,6 +111,40 @@ const Cart = (): JSX.Element => {
         postalCode: "",
         phone: phone,
       },
+    };
+  }
+
+  function createPaymentRequest(): SqPaymentRequest {
+    return {
+      requestShippingAddress: false,
+      requestBillingInfo: true,
+      shippingContact: {
+        familyName: lastName,
+        givenName: firstName,
+        email: email,
+        country: "USA",
+        region: "",
+        city: "",
+        addressLines: [
+          address
+        ],
+        postalCode: "",
+        phone: phone
+      },
+      currencyCode: "USD",
+      countryCode: "US",
+      total: {
+        label: "NOBLE CUTS",
+        amount: moneyFormatter.format(cartTotal),
+        pending: false
+      },
+      lineItems: cart.map(productInCart => {
+        return {
+          label: productInCart.title,
+          amount: moneyFormatter.format(productInCart.price * productInCart.quantity),
+          pending: false
+        }
+      })
     };
   }
 
@@ -251,10 +284,11 @@ const Cart = (): JSX.Element => {
               <SquarePaymentForm
                 // apiWrapper="some-string???" TODO: Figure out what this is
                 formId="NobleCheckoutForm"
-                sandbox={true}
-                applicationId={"sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"}
-                locationId={"L832Y9Z6HA8PE"}
+                sandbox
+                applicationId="sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"
+                locationId="L832Y9Z6HA8PE"
                 cardNonceResponseReceived={cardNonceResponseReceived}
+                createPaymentRequest={createPaymentRequest}
                 createVerificationDetails={createVerificationDetails}
               >
                 <fieldset className="sq-fieldset">

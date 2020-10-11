@@ -1,74 +1,51 @@
-const SquareConnect = require("square-connect");
-const { v4: uuidv4 } = require('uuid');
+const squareConnect = require("square-connect");
+const crypto = require("crypto");
 
-const SquareClient = SquareConnect.ApiClient.instance;
-const IS_PROD = false;
-
-SquareClient.basePath = IS_PROD
-  ? "https://connect.squareup.com"
-  : "https://connect.squareupsandbox.com";
-
-const oauth2 = SquareClient.authentications["oauth2"];
-oauth2.accessToken = IS_PROD
-  ? process.env.PROD_ACCESS_TOKEN
-  : process.env.SANDBOX_ACCESS_TOKEN;
-
-const LOCATION_ID = IS_PROD
-  ? process.env.PROD_LOCATION_ID
-  : process.env.SANDBOX_LOCATION_ID;
-
-const APPLICATION_ID = IS_PROD
-  ? "sq0idp-2VSnO9Xmxpkajj6zTS1MoA"
-  : "sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg";
-
-const IDEMPOTENCY_KEY = uuidv4();
-
-exports.handler = function (event, context, callback) {
-  const paymentsApi = new SquareConnect.PaymentsApi();
+exports.handler = async function (event, context, callback) {
   const data = JSON.parse(event.body);
-  const { cart, nonce, buyerVerificationToken, email, address } = data
+  const { cartTotal, nonce, buyerVerificationToken } = data
 
-  console.log("Access Token", process.env.SANDBOX_ACCESS_TOKEN);
-  console.log("Application ID", LOCATION_ID);
-  console.log({ cart, nonce, buyerVerificationToken, email, address });
+  console.log({ cartTotal, nonce, buyerVerificationToken });
 
-  const lineItems =
-    cart.map((productInCart) => {
-      return {
-        name: productInCart.title,
-        quantity: `${productInCart.quantity}`,
-        base_price_money: {
-          amount: parseInt(productInCart.price),
-          currency: "USD",
-        },
-        note: productInCart.description,
-      };
-    }) || [];
+  // const requestBody = new squareConnect.CreatePaymentRequest(
+  //   APPLICATION_ID,
+  //   {
+  //     source_id: nonce,
+  //     idempotency_key: IDEMPOTENCY_KEY,
+  //     amount_money: "100",
+  //     location_id: LOCATION_ID,
+  //     verification_token: buyerVerificationToken,
+  //     buyer_email_address: email,
+  //     billing_address: address,
+  //     shipping_address: address,
+  //     note: JSON.stringify(cart),
+  //   }
+  // );
 
-  const requestBody = new SquareConnect.CreatePaymentRequest(
-    APPLICATION_ID,
-    {
-      source_id: nonce,
-      idempotency_key: IDEMPOTENCY_KEY,
-      amount_money: "100",
-      location_id: LOCATION_ID,
-      verification_token: buyerVerificationToken,
-      buyer_email_address: email,
-      billing_address: address,
-      shipping_address: address,
-      note: JSON.stringify(cart),
-    }
-  );
+  const idempotencyKey = crypto.randomBytes(23).toString('hex');
 
-  paymentsApi.createPayment(requestBody).then((data) => {
+  const paymentsAPI = new squareConnect.PaymentsApi();
+  const requestBody = {
+    source_id: nonce,
+    amount_money: {
+      amount: cartTotal,
+      currency: 'USD'
+    },
+    idempotency_key: idempotencyKey
+  };
+
+  try {
+    const response = await paymentsAPI.createPayment(requestBody);
+    const json = JSON.stringify(response);
     console.log('API called successfully. Returned data: ' + data);
+
     callback(null, {
       statusCode: 200,
-      body:
-        response && response.checkout && response.checkout.checkout_page_url,
+      body: json
     });
-  }, (error) => {
+
+  } catch (error) {
     console.error(error);
     callback(err);
-  });
+  }
 };
