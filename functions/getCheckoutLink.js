@@ -1,5 +1,5 @@
 const SquareConnect = require("square-connect");
-const crypto = require("crypto");
+const { v4: uuidv4 } = require('uuid');
 
 const SquareClient = SquareConnect.ApiClient.instance;
 const IS_PROD = false;
@@ -23,8 +23,6 @@ const APPLICATION_ID = IS_PROD
 
 exports.handler = function (event, context, callback) {
   const paymentsApi = new SquareConnect.PaymentsApi();
-  const idempotencyKey = crypto.randomBytes(23).toString("hex");
-
   const data = JSON.parse(event.body);
   const { cart, nonce, buyerVerificationToken, email, address } = data
 
@@ -49,13 +47,8 @@ exports.handler = function (event, context, callback) {
     APPLICATION_ID,
     {
       source_id: nonce,
-      idempotency_key: idempotencyKey,
+      idempotency_key: uuidv4(),
       amount_money: "100",
-      // order: {
-      //   idempotency_key: idempotencyKey,
-      //   reference_id: Date.now().toString(),
-      //   line_items: lineItems,
-      // },
       location_id: LOCATION_ID,
       verification_token: buyerVerificationToken,
       buyer_email_address: email,
