@@ -1,7 +1,7 @@
 const squareConnect = require("square-connect");
 const crypto = require("crypto");
 
-const squareClient = SquareConnect.ApiClient.instance
+const squareClient = squareConnect.ApiClient.instance
 const oauth2 = squareClient.authentications["oauth2"];
 oauth2.accessToken = process.env.SANDBOX_ACCESS_TOKEN;
 
