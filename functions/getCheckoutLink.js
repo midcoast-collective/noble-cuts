@@ -3,7 +3,9 @@ const crypto = require("crypto");
 
 const squareClient = squareConnect.ApiClient.instance
 const oauth2 = squareClient.authentications["oauth2"];
+
 oauth2.accessToken = process.env.SANDBOX_ACCESS_TOKEN;
+// oauth2.accessToken = process.env.ACCESS_TOKEN;
 squareClient.basePath = "https://connect.squareupsandbox.com"
 // squareClient.basePath = "https://connect.squareup.com"
 
