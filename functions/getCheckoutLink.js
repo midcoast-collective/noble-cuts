@@ -21,6 +21,8 @@ const APPLICATION_ID = IS_PROD
   ? "sq0idp-2VSnO9Xmxpkajj6zTS1MoA"
   : "sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg";
 
+const IDEMPOTENCY_KEY = uuidv4();
+
 exports.handler = function (event, context, callback) {
   const paymentsApi = new SquareConnect.PaymentsApi();
   const data = JSON.parse(event.body);
@@ -47,7 +49,7 @@ exports.handler = function (event, context, callback) {
     APPLICATION_ID,
     {
       source_id: nonce,
-      idempotency_key: uuidv4(),
+      idempotency_key: IDEMPOTENCY_KEY,
       amount_money: "100",
       location_id: LOCATION_ID,
       verification_token: buyerVerificationToken,
