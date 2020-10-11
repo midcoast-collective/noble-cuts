@@ -27,6 +27,7 @@ exports.handler = async function (event, context, callback) {
   const paymentsAPI = new squareConnect.PaymentsApi();
   const requestBody = {
     source_id: nonce,
+    verification_token: buyerVerificationToken,
     amount_money: {
       amount: cartTotal,
       currency: 'USD'
