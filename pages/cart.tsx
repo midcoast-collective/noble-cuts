@@ -1,6 +1,7 @@
 import React from "react";
 import Img from "react-optimized-image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   SquarePaymentForm,
   CreditCardNumberInput,
@@ -49,6 +50,7 @@ const Cart = (): JSX.Element => {
     removeProduct,
     removeAllProduct,
   ] = useCart();
+  const router = useRouter();
 
   let cartTotal = 0;
   cart.forEach(
@@ -56,11 +58,18 @@ const Cart = (): JSX.Element => {
       (cartTotal += productInCart.quantity * productInCart.price)
   );
 
+  const cartTotalToString = cartTotal.toString().includes(".")
+    ? cartTotal.toString().replace(".", "") + "0"
+    : cartTotal.toString() + "00";
+
+  console.log({ cartTotal, cartTotalToString });
+
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
+  const [paymentError, setPaymentError] = React.useState(false);
 
   function cardNonceResponseReceived(
     errors: unknown | null,
@@ -72,33 +81,31 @@ const Cart = (): JSX.Element => {
       console.log(errors); // TODO: Handle Errors
     }
 
-    console.log(
-      "nonce created: " +
-        nonce +
-        ", buyerVerificationToken: " +
-        buyerVerificationToken
-    );
-
     axios
       .post(
         `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
         {
-          cartTotal,
+          cartTotalToString,
           nonce,
           buyerVerificationToken,
         }
       )
       .then((response) => {
         console.log(response);
+        setPaymentError(false);
+
+        router.push("/success/");
       })
       .catch((error) => {
         console.log(error);
+
+        setPaymentError(true);
       });
   }
 
   function createVerificationDetails(): SqVerificationDetails {
     return {
-      amount: `${cartTotal}`,
+      amount: cartTotalToString,
       currencyCode: "USD",
       intent: "CHARGE",
       billingContact: {
@@ -125,26 +132,26 @@ const Cart = (): JSX.Element => {
         country: "USA",
         region: "",
         city: "",
-        addressLines: [
-          address
-        ],
+        addressLines: [address],
         postalCode: "",
-        phone: phone
+        phone: phone,
       },
       currencyCode: "USD",
       countryCode: "US",
       total: {
         label: "NOBLE CUTS",
         amount: moneyFormatter.format(cartTotal),
-        pending: false
+        pending: false,
       },
-      lineItems: cart.map(productInCart => {
+      lineItems: cart.map((productInCart) => {
         return {
           label: productInCart.title,
-          amount: moneyFormatter.format(productInCart.price * productInCart.quantity),
-          pending: false
-        }
-      })
+          amount: moneyFormatter.format(
+            productInCart.price * productInCart.quantity
+          ),
+          pending: false,
+        };
+      }),
     };
   }
 
@@ -231,86 +238,99 @@ const Cart = (): JSX.Element => {
               </p>
             </div>
 
-            <div className="forms">
-              <form className="customer">
-                <fieldset className="sq-fieldset">
-                  <div className="sq-form-half">
+            {cartTotal > 0 ? (
+              <div className="forms">
+                <form className="customer">
+                  <fieldset className="sq-fieldset">
+                    <div className="sq-form-half">
+                      <label>
+                        First Name
+                        <input
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.currentTarget.value)}
+                        />
+                      </label>
+                      <label>
+                        Last Name
+                        <input
+                          type="text"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.currentTarget.value)}
+                        />
+                      </label>
+                    </div>
+
                     <label>
-                      First Name
+                      Email
                       <input
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.currentTarget.value)}
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.currentTarget.value)}
                       />
                     </label>
                     <label>
-                      Last Name
+                      Address
                       <input
                         type="text"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.currentTarget.value)}
+                        value={address}
+                        onChange={(e) => setAddress(e.currentTarget.value)}
                       />
                     </label>
-                  </div>
+                    <label>
+                      Phone
+                      <input
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.currentTarget.value)}
+                      />
+                    </label>
+                  </fieldset>
+                </form>
 
-                  <label>
-                    Email
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.currentTarget.value)}
-                    />
-                  </label>
-                  <label>
-                    Address
-                    <input
-                      type="text"
-                      value={address}
-                      onChange={(e) => setAddress(e.currentTarget.value)}
-                    />
-                  </label>
-                  <label>
-                    Phone
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.currentTarget.value)}
-                    />
-                  </label>
-                </fieldset>
-              </form>
+                {/* @ts-ignore */}
+                <SquarePaymentForm
+                  // apiWrapper="some-string???" TODO: Figure out what this is
+                  formId="NobleCheckoutForm"
+                  sandbox
+                  applicationId="sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"
+                  locationId="L832Y9Z6HA8PE"
+                  cardNonceResponseReceived={cardNonceResponseReceived}
+                  createPaymentRequest={createPaymentRequest}
+                  createVerificationDetails={createVerificationDetails}
+                >
+                  <fieldset className="sq-fieldset">
+                    <CreditCardNumberInput />
+                    <div className="sq-form-third">
+                      <CreditCardExpirationDateInput />
+                    </div>
 
-              {/* @ts-ignore */}
-              <SquarePaymentForm
-                // apiWrapper="some-string???" TODO: Figure out what this is
-                formId="NobleCheckoutForm"
-                sandbox
-                applicationId="sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"
-                locationId="L832Y9Z6HA8PE"
-                cardNonceResponseReceived={cardNonceResponseReceived}
-                createPaymentRequest={createPaymentRequest}
-                createVerificationDetails={createVerificationDetails}
-              >
-                <fieldset className="sq-fieldset">
-                  <CreditCardNumberInput />
-                  <div className="sq-form-third">
-                    <CreditCardExpirationDateInput />
-                  </div>
+                    <div className="sq-form-third">
+                      <CreditCardPostalCodeInput />
+                    </div>
 
-                  <div className="sq-form-third">
-                    <CreditCardPostalCodeInput />
-                  </div>
+                    <div className="sq-form-third">
+                      <CreditCardCVVInput />
+                    </div>
+                  </fieldset>
 
-                  <div className="sq-form-third">
-                    <CreditCardCVVInput />
-                  </div>
-                </fieldset>
+                  {paymentError ? (
+                    <p>
+                      There was an error processing payment. Please try again
+                      later.
+                    </p>
+                  ) : null}
 
-                <CreditCardSubmitButton>
-                  Check Out {moneyFormatter.format(cartTotal)}
-                </CreditCardSubmitButton>
-              </SquarePaymentForm>
-            </div>
+                  {firstName && lastName && email && phone && address ? (
+                    <CreditCardSubmitButton>
+                      Check Out {moneyFormatter.format(cartTotal)}
+                    </CreditCardSubmitButton>
+                  ) : (
+                    <p>Please fill out all fields.</p>
+                  )}
+                </SquarePaymentForm>
+              </div>
+            ) : null}
           </div>
         </section>
       </main>
