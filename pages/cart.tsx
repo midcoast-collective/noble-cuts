@@ -92,6 +92,10 @@ const Cart = (): JSX.Element => {
       setPaymentError(true);
     }
 
+    if (processing) {
+      return;
+    }
+
     setProcessing(true);
 
     try {
@@ -121,7 +125,6 @@ const Cart = (): JSX.Element => {
       );
 
       setPaymentError(false);
-      setProcessing(false);
       emptyCart();
       // @ts-ignore
       router.push(
