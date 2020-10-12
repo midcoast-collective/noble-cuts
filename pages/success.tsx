@@ -24,7 +24,7 @@ const Success = (): JSX.Element => {
       <section>
         <div
           className="wrap narrow"
-          style={{ paddingBottom: "40vh", textAlign: "center" }}
+          style={{ paddingBottom: "20vh", textAlign: "center" }}
         >
           <h2>Thank you for your order!</h2>
           <p>
