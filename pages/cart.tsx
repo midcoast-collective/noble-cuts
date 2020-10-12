@@ -95,7 +95,7 @@ const Cart = (): JSX.Element => {
         }
       )
       .then((response) => {
-        console.log(response);
+        alert(JSON.stringify(response));
         setPaymentError(false);
         emptyCart();
 
