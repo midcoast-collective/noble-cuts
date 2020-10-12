@@ -11,27 +11,28 @@ squareClient.basePath = "https://connect.squareupsandbox.com";
 
 exports.handler = async function (event, context, callback) {
   const data = JSON.parse(event.body);
-  const { cartTotal, nonce, buyerVerificationToken } = data;
+  const { customer } = data;
 
   const idempotencyKey = uuidv4();
 
-  console.log({ cartTotal, nonce, buyerVerificationToken, idempotencyKey });
+  console.log({ customer });
 
-  const paymentsAPI = new squareConnect.PaymentsApi();
+  const customersApi = new squareConnect.CustomersApi();
   const requestBody = {
-    source_id: nonce,
-    verification_token: buyerVerificationToken,
-    amount_money: {
-      amount: parseInt(cartTotal, 10),
-      currency: "USD",
+    given_name: customer.firstName,
+    family_name: customer.lastName,
+    email_address: customer.email,
+    phone_number: customer.phone,
+    address: {
+      address_line_1: customer.address,
     },
     idempotency_key: idempotencyKey,
   };
 
   try {
-    const response = await paymentsAPI.createPayment(requestBody);
+    const response = await customersApi.createCustomer(requestBody);
     const json = JSON.stringify(response);
-    console.log("API called successfully. Returned data: " + data);
+    console.log("API called successfully. Returned data: " + json);
 
     callback(null, {
       statusCode: 200,

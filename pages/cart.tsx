@@ -10,7 +10,7 @@ import {
   CreditCardCVVInput,
   CreditCardSubmitButton,
 } from "react-square-payment-form";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
@@ -34,6 +34,16 @@ type SqVerificationDetails = {
   amount?: string;
   currencyCode?: string;
   intent?: string;
+};
+
+type CustomerResponse = {
+  customer: {
+    id: string;
+    address: {
+      [key: string]: string;
+    };
+    [key: string]: string | object;
+  };
 };
 
 const moneyFormatter = new Intl.NumberFormat("en-US", {
@@ -87,19 +97,42 @@ const Cart = (): JSX.Element => {
 
     axios
       .post(
-        `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
+        `https://noble-cuts.netlify.app/.netlify/functions/createCustomer`,
         {
-          cartTotal: cartTotalToString,
-          nonce,
-          buyerVerificationToken,
+          customer: {
+            firstName,
+            lastName,
+            email,
+            phone,
+            address,
+          },
         }
       )
-      .then((response) => {
-        alert(JSON.stringify(response));
-        setPaymentError(false);
-        emptyCart();
+      .then((customerResponse: AxiosResponse<CustomerResponse>) => {
+        console.log(JSON.stringify(customerResponse));
+        axios
+          .post(
+            `https://noble-cuts.netlify.app/.netlify/functions/createPayment`,
+            {
+              cartTotal: cartTotalToString,
+              customerId: customerResponse.data.customer.id,
+              nonce,
+              buyerVerificationToken,
+              note: JSON.stringify(cart),
+            }
+          )
+          .then((paymentResponse) => {
+            console.log(JSON.stringify(paymentResponse));
+            setPaymentError(false);
+            emptyCart();
 
-        router.push("/success/");
+            // router.push("/success/");
+          })
+          .catch((error) => {
+            console.log(error);
+
+            setPaymentError(true);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -129,23 +162,12 @@ const Cart = (): JSX.Element => {
   function createPaymentRequest(): SqPaymentRequest {
     return {
       requestShippingAddress: false,
-      requestBillingInfo: true,
-      shippingContact: {
-        familyName: lastName,
-        givenName: firstName,
-        email: email,
-        country: "USA",
-        region: "",
-        city: "",
-        addressLines: [address],
-        postalCode: "",
-        phone: phone,
-      },
+      requestBillingInfo: false,
       currencyCode: "USD",
       countryCode: "US",
       total: {
         label: "NOBLE CUTS",
-        amount: moneyFormatter.format(cartTotal),
+        amount: cartTotalToString,
         pending: false,
       },
       lineItems: cart.map((productInCart) => {
