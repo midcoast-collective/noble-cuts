@@ -15,6 +15,7 @@ import axios, { AxiosResponse } from "axios";
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
 import { SqPaymentRequest } from "react-square-payment-form/lib/components/models";
+import { Product } from "api/getProductsData";
 
 type SqContact = {
   familyName: string;
@@ -34,16 +35,6 @@ type SqVerificationDetails = {
   amount?: string;
   currencyCode?: string;
   intent?: string;
-};
-
-type CustomerResponse = {
-  customer: {
-    id: string;
-    address: {
-      [key: string]: string;
-    };
-    [key: string]: string | object;
-  };
 };
 
 const moneyFormatter = new Intl.NumberFormat("en-US", {
@@ -73,7 +64,12 @@ const Cart = (): JSX.Element => {
     ? cartTotal.toString().replace(".", "") + "0"
     : cartTotal.toString() + "00";
 
-  console.log({ cartTotal, cartTotalToString });
+  const note = cart
+    .map(
+      (productInCart: Product) =>
+        `${productInCart.title} (${productInCart.price}) x ${productInCart.quantity}`
+    )
+    .join(", ");
 
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
@@ -82,7 +78,7 @@ const Cart = (): JSX.Element => {
   const [address, setAddress] = React.useState("");
   const [paymentError, setPaymentError] = React.useState(false);
 
-  function cardNonceResponseReceived(
+  async function cardNonceResponseReceived(
     errors: unknown | null,
     nonce: string,
     cardData: unknown,
@@ -93,10 +89,8 @@ const Cart = (): JSX.Element => {
       setPaymentError(true);
     }
 
-    console.log({ cardData });
-
-    axios
-      .post(
+    try {
+      const createCustomerResponse: unknown = await axios.post(
         `https://noble-cuts.netlify.app/.netlify/functions/createCustomer`,
         {
           customer: {
@@ -107,38 +101,30 @@ const Cart = (): JSX.Element => {
             address,
           },
         }
-      )
-      .then((customerResponse: AxiosResponse<CustomerResponse>) => {
-        console.log(JSON.stringify(customerResponse));
-        axios
-          .post(
-            `https://noble-cuts.netlify.app/.netlify/functions/createPayment`,
-            {
-              cartTotal: cartTotalToString,
-              customerId: customerResponse.data.customer.id,
-              nonce,
-              buyerVerificationToken,
-              note: JSON.stringify(cart),
-            }
-          )
-          .then((paymentResponse) => {
-            console.log(JSON.stringify(paymentResponse));
-            setPaymentError(false);
-            emptyCart();
+      );
+      console.log(JSON.stringify(createCustomerResponse));
 
-            // router.push("/success/");
-          })
-          .catch((error) => {
-            console.log(error);
+      const createPaymentResponse = await axios.post(
+        `https://noble-cuts.netlify.app/.netlify/functions/createPayment`,
+        {
+          cartTotal: cartTotalToString,
+          // @ts-ignore-next-line
+          customerId: createCustomerResponse.data.customer.id,
+          nonce,
+          buyerVerificationToken,
+          note,
+        }
+      );
+      console.log(JSON.stringify(createPaymentResponse));
 
-            setPaymentError(true);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
+      setPaymentError(false);
+      emptyCart();
+      // router.push("/success/");
+    } catch (error) {
+      console.log(error);
 
-        setPaymentError(true);
-      });
+      setPaymentError(true);
+    }
   }
 
   function createVerificationDetails(): SqVerificationDetails {
