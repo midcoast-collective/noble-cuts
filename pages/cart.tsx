@@ -82,11 +82,13 @@ const Cart = (): JSX.Element => {
       setPaymentError(true);
     }
 
+    console.log({ cardData });
+
     axios
       .post(
         `https://noble-cuts.netlify.app/.netlify/functions/getCheckoutLink`,
         {
-          cartTotalToString,
+          cartTotal: cartTotalToString,
           nonce,
           buyerVerificationToken,
         }
