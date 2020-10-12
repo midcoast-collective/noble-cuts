@@ -10,7 +10,7 @@ import {
   CreditCardCVVInput,
   CreditCardSubmitButton,
 } from "react-square-payment-form";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 import { Layout } from "@components/index";
 import { useCart } from "../api/useCart";
@@ -67,7 +67,9 @@ const Cart = (): JSX.Element => {
   const note = cart
     .map(
       (productInCart: Product) =>
-        `${productInCart.title} (${productInCart.price}) x ${productInCart.quantity}`
+        `${productInCart.title} (${moneyFormatter.format(
+          productInCart.price
+        )}) x ${productInCart.quantity}`
     )
     .join(", ");
 
@@ -102,27 +104,25 @@ const Cart = (): JSX.Element => {
           },
         }
       );
-      console.log(JSON.stringify(createCustomerResponse));
 
       const createPaymentResponse = await axios.post(
         `https://noble-cuts.netlify.app/.netlify/functions/createPayment`,
         {
           cartTotal: cartTotalToString,
-          // @ts-ignore-next-line
+          // @ts-ignore
           customerId: createCustomerResponse.data.customer.id,
           nonce,
           buyerVerificationToken,
           note,
         }
       );
-      console.log(JSON.stringify(createPaymentResponse));
 
       setPaymentError(false);
       emptyCart();
-      // router.push({
-      //   pathname: "/success/",
-      //   query: "RECEIPT",
-      // });
+      // @ts-ignore
+      router.push(
+        `/success/?receipt=${createPaymentResponse.data.payment.receipt_url}`
+      );
     } catch (error) {
       console.log(error);
 
@@ -159,15 +159,6 @@ const Cart = (): JSX.Element => {
         amount: cartTotalToString,
         pending: false,
       },
-      lineItems: cart.map((productInCart) => {
-        return {
-          label: productInCart.title,
-          amount: moneyFormatter.format(
-            productInCart.price * productInCart.quantity
-          ),
-          pending: false,
-        };
-      }),
     };
   }
 
