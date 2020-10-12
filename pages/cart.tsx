@@ -78,7 +78,8 @@ const Cart = (): JSX.Element => {
     buyerVerificationToken?: string
   ) {
     if (errors) {
-      console.log(errors); // TODO: Handle Errors
+      console.log(errors);
+      setPaymentError(true);
     }
 
     axios
