@@ -49,6 +49,7 @@ const Cart = (): JSX.Element => {
     addProduct,
     removeProduct,
     removeAllProduct,
+    emptyCart,
   ] = useCart();
   const router = useRouter();
 
@@ -96,6 +97,7 @@ const Cart = (): JSX.Element => {
       .then((response) => {
         console.log(response);
         setPaymentError(false);
+        emptyCart();
 
         router.push("/success/");
       })

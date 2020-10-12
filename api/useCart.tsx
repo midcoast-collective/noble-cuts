@@ -105,11 +105,24 @@ export function useCart() {
     }, 200);
   }
 
+  function emptyCart(): void {
+    setCartIsUpdating(true);
+
+    setTimeout(() => {
+      localForage.setItem(CART, []).then((value: unknown) => {
+        setCart(value as Product[]);
+      });
+
+      setCartIsUpdating(false);
+    }, 200);
+  }
+
   return [
     cart,
     cartIsUpdating,
     addProduct,
     removeProduct,
     removeAllProduct,
+    emptyCart,
   ] as const;
 }

@@ -8,11 +8,14 @@ const Success = (): JSX.Element => {
       title={`Payment Success | Noble Cuts`}
       description={""}
       url={"https://noblecutsmeat.com/success/"}
+      showCart={false}
     >
       <section>
-        <div className="wrap narrow">
+        <div className="wrap narrow" style={{ paddingBottom: "40vh" }}>
           <h2>Thank you for your order!</h2>
-          <p>For information on your order, please contact us at PHONE_NUMBER.</p>
+          <p>
+            For information on your order, please contact us at PHONE_NUMBER.
+          </p>
         </div>
       </section>
     </Layout>
