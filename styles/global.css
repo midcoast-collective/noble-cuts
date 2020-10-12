@@ -113,6 +113,16 @@ nav.desktop-only {
 
   nav.desktop-only {
     display: flex;
+    justify-content: center;
+  }
+
+  nav.desktop-only > *:not(.logo) {
+    width: 100px;
+    text-align: center;
+  }
+
+  nav.desktop-only > *.logo {
+    margin: 0 20px;
   }
 }
 

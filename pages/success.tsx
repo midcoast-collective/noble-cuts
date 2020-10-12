@@ -22,16 +22,18 @@ const Success = (): JSX.Element => {
       showCart={false}
     >
       <section>
-        <div className="wrap narrow" style={{ paddingBottom: "40vh" }}>
+        <div
+          className="wrap narrow"
+          style={{ paddingBottom: "40vh", textAlign: "center" }}
+        >
           <h2>Thank you for your order!</h2>
           <p>
             For information on your order, please contact us at PHONE_NUMBER.
           </p>
           {receiptUrl ? (
             <p>
-              Here is the receipt for your payment:{" "}
               <a href={receiptUrl} target="_blank">
-                {receiptUrl}
+                View Receipt
               </a>
             </p>
           ) : null}
