@@ -79,6 +79,7 @@ const Cart = (): JSX.Element => {
   const [phone, setPhone] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [paymentError, setPaymentError] = React.useState(false);
+  const [processing, setProcessing] = React.useState(false);
 
   async function cardNonceResponseReceived(
     errors: unknown | null,
@@ -90,6 +91,8 @@ const Cart = (): JSX.Element => {
       console.log(errors);
       setPaymentError(true);
     }
+
+    setProcessing(true);
 
     try {
       const createCustomerResponse: unknown = await axios.post(
@@ -118,6 +121,7 @@ const Cart = (): JSX.Element => {
       );
 
       setPaymentError(false);
+      setProcessing(false);
       emptyCart();
       // @ts-ignore
       router.push(
@@ -127,6 +131,7 @@ const Cart = (): JSX.Element => {
       console.log(error);
 
       setPaymentError(true);
+      setProcessing(false);
     }
   }
 
@@ -330,7 +335,9 @@ const Cart = (): JSX.Element => {
 
                   {firstName && lastName && email && phone && address ? (
                     <CreditCardSubmitButton>
-                      Check Out {moneyFormatter.format(cartTotal)}
+                      {processing
+                        ? `Processing...`
+                        : `Check Out ${moneyFormatter.format(cartTotal)}`}
                     </CreditCardSubmitButton>
                   ) : (
                     <p>Please fill out all fields.</p>
