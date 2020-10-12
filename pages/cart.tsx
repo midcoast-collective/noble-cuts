@@ -249,7 +249,8 @@ const Cart = (): JSX.Element => {
                 it must be picked within 7 days of completion.
               </p>
               <p>
-                For shipping requests, please contact us for a custom quote.
+                For shipping requests, please contact us at{" "}
+                <a href="tel:3167082134">(316) 708-2134</a> for a custom quote.
               </p>
             </div>
 

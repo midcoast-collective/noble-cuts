@@ -28,7 +28,8 @@ const Success = (): JSX.Element => {
         >
           <h2>Thank you for your order!</h2>
           <p>
-            For information on your order, please contact us at PHONE_NUMBER.
+            For information on your order, please contact us at{" "}
+            <a href="tel:3167082134">(316) 708-2134</a>.
           </p>
           {receiptUrl ? (
             <p>
