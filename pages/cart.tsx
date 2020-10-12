@@ -119,7 +119,10 @@ const Cart = (): JSX.Element => {
 
       setPaymentError(false);
       emptyCart();
-      // router.push("/success/");
+      // router.push({
+      //   pathname: "/success/",
+      //   query: "RECEIPT",
+      // });
     } catch (error) {
       console.log(error);
 
