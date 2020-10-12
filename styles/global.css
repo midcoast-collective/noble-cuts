@@ -213,10 +213,6 @@ p.blurb {
   width: calc(50% - 2px);
 }
 
-.cuts path[fill="#10103E"]:hover {
-  fill: var(--color-secondary);
-}
-
 .products {
   padding: var(--rhythm) 0;
   text-align: center;
