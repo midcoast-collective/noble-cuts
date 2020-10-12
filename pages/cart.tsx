@@ -185,7 +185,7 @@ const Cart = (): JSX.Element => {
                           {moneyFormatter.format(
                             product.quantity * product.price
                           )}{" "}
-                          (&times;{product.quantity})
+                          ({product.quantity})
                         </span>
                       </div>
                       <div>

@@ -216,7 +216,8 @@ p.blurb {
   .products {
     align-items: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 
@@ -227,14 +228,15 @@ p.blurb {
 
 @media (min-width: 754px) {
   .product {
-    width: 25%;
+    width: 30%;
+    padding: var(--rhythm);
   }
 }
 
 @media (max-width: 754px) {
-  .product + .product {
+  /* .product + .product {
     padding-top: var(--rhythm);
-  }
+  } */
 }
 
 .product p {

@@ -52,36 +52,38 @@ const HomePage = ({
 
         <div className="wrap">
           <div className="products">
-            {products.map((product) => {
-              const cartProduct = cart.find(
-                (productInCart) => productInCart.title === product.title
-              );
-              const cartProductQuantity = cartProduct
-                ? cartProduct.quantity
-                : 0;
+            {products
+              .sort((a, b) => a.order - b.order)
+              .map((product) => {
+                const cartProduct = cart.find(
+                  (productInCart) => productInCart.title === product.title
+                );
+                const cartProductQuantity = cartProduct
+                  ? cartProduct.quantity
+                  : 0;
 
-              return (
-                <div className="product" key={product.id}>
-                  <h3>{product.title}</h3>
-                  <Img
-                    src={require(`../public/images/uploads/${product.thumbnail}`)}
-                    type="product"
-                  />
-                  <p>
-                    <strong>{`${product.priceperpound}/lb`}</strong>
-                  </p>
-                  <p>{product.description}</p>
-                  <button
-                    className="button"
-                    onClick={() => addProduct(product)}
-                  >
-                    {cartProductQuantity < 1
-                      ? `Add to Cart`
-                      : `${cartProductQuantity} Added to Cart`}
-                  </button>
-                </div>
-              );
-            })}
+                return (
+                  <div className="product" key={product.id}>
+                    <h3>{product.title}</h3>
+                    <Img
+                      src={require(`../public/images/uploads/${product.thumbnail}`)}
+                      type="product"
+                    />
+                    <p>
+                      <strong>{`${product.priceperpound}/lb`}</strong>
+                    </p>
+                    <p>{product.description}</p>
+                    <button
+                      className="button"
+                      onClick={() => addProduct(product)}
+                    >
+                      {cartProductQuantity < 1
+                        ? `Add to Cart`
+                        : `${cartProductQuantity} Added to Cart`}
+                    </button>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </section>

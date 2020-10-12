@@ -29,6 +29,14 @@ collections:
           step: 50,
         }
       - { label: Description, name: description, widget: text }
+      - {
+          label: Order,
+          name: order,
+          widget: number,
+          default: 0,
+          value_type: int,
+          step: 1,
+        }
   - label: Pages
     name: pages
     files:

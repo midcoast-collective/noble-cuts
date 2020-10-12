@@ -5,4 +5,5 @@ priceperpound: $4.99
 thumbnail: full.png
 price: 2125
 description: $4250 maximum total price – down payment of $2125 with remainder to be invoiced upon processing. Buyer can choose cuts.
+order: 0
 ---

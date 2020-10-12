@@ -10,6 +10,7 @@ export type Product = {
   title: string;
   thumbnail: string;
   quantity: number;
+  order: number;
 };
 
 const productsDirectory = path.join(process.cwd(), "content/products");
@@ -33,6 +34,7 @@ export function getProductsData() {
         priceperpound: matterResult.data.priceperpound,
         title: matterResult.data.title,
         thumbnail: matterResult.data.thumbnail,
+        order: matterResult.data.order,
         quantity: 0,
       };
 
