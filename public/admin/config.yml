@@ -45,7 +45,6 @@ collections:
         file: "content/pages/home.md"
         fields:
           - { label: Title, name: title, widget: string }
-          - { label: Intro, name: intro, widget: text }
           - label: Blocks
             name: blocks
             widget: list
@@ -60,7 +59,7 @@ collections:
           - { label: Title, name: title, widget: string }
           - { label: Intro, name: intro, widget: text }
           - { label: Photo, name: photo, widget: image }
-          - { lable: Outro, name: outro, widget: text }
+          - { label: Outro, name: outro, widget: text }
           - label: FAQs
             name: faqs
             widget: list

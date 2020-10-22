@@ -35,7 +35,7 @@ const HomePage = ({
     }
   });
 
-  const [videoIsVisibile, setVideoIsVisible] = React.useState(false);
+  const [videoIsVisible, setVideoIsVisible] = React.useState(false);
 
   return (
     <main>
@@ -91,12 +91,8 @@ const HomePage = ({
       <section>
         <h2>{page.title}</h2>
 
-        <div className="wrap narrow">
-          <p className="blurb">{page.intro}</p>
-        </div>
-
         <div className="wrap">
-          <div style={{ visibility: videoIsVisibile ? "visible" : "hidden" }}>
+          <div style={{ visibility: videoIsVisible ? "visible" : "hidden" }}>
             <YouTube
               containerClassName="video-container"
               videoId="cB2WAR017jk"

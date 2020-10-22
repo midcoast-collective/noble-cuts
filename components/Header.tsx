@@ -17,7 +17,7 @@ const Header = ({}: Readonly<HeaderProps>) => {
         </Link>
         <Link href="/">
           <a className="logo">
-            <Icon.Logo fill="#10103e" />
+            <Icon.HeaderLogo />
           </a>
         </Link>
         <Link href="/#products">
@@ -31,7 +31,7 @@ const Header = ({}: Readonly<HeaderProps>) => {
       <nav className="mobile-only">
         <Link href="/">
           <a className="logo">
-            <Icon.Logo fill="#10103e" />
+            <Icon.HeaderLogo />
           </a>
         </Link>
       </nav>

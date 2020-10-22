@@ -198,9 +198,16 @@ h2:before {
 
 p.blurb {
   font-size: var(--font-size-medium);
-  margin: 0;
+  margin: 0 auto;
   padding: 0 0 calc(var(--rhythm) * 2);
   text-align: center;
+  max-width: 470px;
+}
+
+p.blurb.about {
+  padding: var(--rhythm) 0 0;
+  text-align: left;
+  max-width: 100%;
 }
 
 .double {
@@ -220,7 +227,7 @@ p.blurb {
 
 @media (min-width: 754px) {
   .products {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
