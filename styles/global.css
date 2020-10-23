@@ -259,6 +259,12 @@ p.blurb.about {
   padding-bottom: var(--rhythm);
 }
 
+@media (min-width: 754px) {
+  .product p.description {
+    min-height: 160px;
+  }
+}
+
 .product img {
   margin-bottom: var(--rhythm);
   width: 200px;

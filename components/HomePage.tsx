@@ -70,9 +70,9 @@ const HomePage = ({
                       type="product"
                     />
                     <p>
-                      <strong>{`${product.priceperpound}/lb`}</strong>
+                      <strong>{product.priceperpound}</strong>
                     </p>
-                    <p>{product.description}</p>
+                    <p className="description">{product.description}</p>
                     <button
                       className="button"
                       onClick={() => addProduct(product)}

@@ -4,7 +4,7 @@ intro: >
   Hi there! We’re Andy and Ashley Greenwood and we own, operate, and live a century farm in Northwest Missouri with our 2 kiddos.
   For those you who may not know what a century farm is, it simply means we have had been recognized for having this farmland in our family for at least 100 years. We have been working the soil when times were good and even when they weren’t so good, like during The Great Depression.
   What that means to you -- we are here to stay; we aren’t going anywhere.
-photo: dsc_4437.jpg
+photo: DSC_3713.jpg
 outro: >
   We started Noble Cuts Meat Co., with one goal in mind: deliver American-grown, beef-goodness to your family’s table. We take our service to our land and to our customers seriously.
   You can taste it every bite. We look forward to meeting you soon.
@@ -16,12 +16,13 @@ faqs:
       Buchanan, Caldwell, Carroll, Clay, Clinton, Davies, Dekalb, Grundy,
       Jackson, Lafayette, Livingston, Platte, Ray, and Saline. Local pickup is
       available by appointment only and orders must be picked up within 7 days
-      of your order being ready.If you would like your order shipped, please
+      of your order being ready. If you would like your order shipped, please
       contact us for pricing."
   - question: Can I pick up my order?
     answer: Local pickup is available by appointment only and orders must be picked up within 7 days of your ready date.
-  - question: Do you offer shipping?
-    answer: If you would like your order shipped, please contact us for pricing.
+  - question: Will you ship my order to me?
+    answer: Absolutely! However, because the weight of each order and shipping
+      prices vary, please contact us for a custom quote.
   - question: How much space do I need in my deep freezer?
     answer:
       Typically, you’ll want to allow yourself 1 cubic foot of freezer space
@@ -59,9 +60,6 @@ faqs:
       roasts are cut to fit in a crock pot, briskets weigh an average of 2-4
       lbs. If you select a whole cow, you can choose what size you like each of
       your cuts. Please contact us for more information."
-  - question: "Will you ship my order to me? "
-    answer: Absolutely! However, because the weight of each order and shipping
-      prices vary, please contact us for a custom quote.
   - question: How long will it take to receive my order?
     answer: Our Noble bundle is available immediately. For quarters, halves, and
       wholes, delivery will vary depending on processing availability and type

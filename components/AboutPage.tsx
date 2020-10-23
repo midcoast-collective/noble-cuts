@@ -23,10 +23,10 @@ const AboutPage = ({ page }: Readonly<AboutPageProps>): JSX.Element => (
       <div className="wrap narrow">
         <p className="blurb about">
           Hi there! We’re Andy and Ashley Greenwood and we own, operate, and
-          live a century farm in Northwest Missouri with our 2 kiddos.
+          live on a century farm in Northwest Missouri with our 2 kiddos.
           <br />
           <br />
-          For those you who may not know what a century farm is, it simply means
+          For those of you who may not know what a century farm is, it simply means
           we have had been recognized for having this farmland in our family for
           at least 100 years. We have been working the soil when times were good
           and even when they weren’t so good, like during The Great Depression.
@@ -41,7 +41,7 @@ const AboutPage = ({ page }: Readonly<AboutPageProps>): JSX.Element => (
           service to our land and to our customers seriously.
           <br />
           <br />
-          You can taste it every bite. We look forward to meeting you soon.
+          You can taste it in every bite. We look forward to meeting you soon.
           <br />
           <br />
           Thank you,
