@@ -353,10 +353,19 @@ footer .logo {
   border-radius: 50%;
   cursor: pointer;
   line-height: 1;
-  padding: calc(var(--rhythm) / 2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   right: var(--rhythm);
   top: var(--rhythm);
+  width: 62px;
+  height: 62px;
+}
+
+.cart > svg {
+  width: 32px;
+  height: auto;
 }
 
 .cart span {
@@ -366,7 +375,7 @@ footer .logo {
   font-weight: var(--font-weight-normal);
   left: 52%;
   position: absolute;
-  top: 49%;
+  top: 52%;
   transform: translate(-50%, -50%);
   transform-origin: center;
 }
