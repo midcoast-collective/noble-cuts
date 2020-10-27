@@ -100,7 +100,7 @@ const Cart = (): JSX.Element => {
 
     try {
       const createCustomerResponse: unknown = await axios.post(
-        `https://noble-cuts.netlify.app/.netlify/functions/createCustomer`,
+        `https://noblecutsmeat.com/.netlify/functions/createCustomer`,
         {
           customer: {
             firstName,
@@ -113,7 +113,7 @@ const Cart = (): JSX.Element => {
       );
 
       const createPaymentResponse = await axios.post(
-        `https://noble-cuts.netlify.app/.netlify/functions/createPayment`,
+        `https://noblecutsmeat.com/.netlify/functions/createPayment`,
         {
           cartTotal: cartTotalToString,
           // @ts-ignore
