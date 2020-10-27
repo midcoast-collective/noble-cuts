@@ -77,8 +77,30 @@ body {
   max-width: var(--break-small);
 }
 
+.hairline {
+  background-color: var(--color-default);
+  padding: calc(var(--rhythm) / 2) 0;
+  text-align: center;
+}
+
+.hairline-links {
+  /* display: flex; */
+  /* justify-content: flex-start; */
+  color: var(--color-white);
+  font-size: var(--font-size-small);
+}
+
+.hairline-links a {
+  /* display: block; */
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.hairline-links > * + * {
+  margin-left: calc(var(--rhythm) / 2);
+}
+
 header {
-  border-top: calc(var(--rhythm) / 2) solid;
   padding: var(--rhythm) 0;
   position: relative;
   width: 100%;
