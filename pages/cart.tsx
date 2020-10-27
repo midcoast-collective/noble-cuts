@@ -308,9 +308,11 @@ const Cart = (): JSX.Element => {
                 <SquarePaymentForm
                   // apiWrapper="some-string???" TODO: Figure out what this is
                   formId="NobleCheckoutForm"
-                  sandbox
-                  applicationId="sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"
-                  locationId="L832Y9Z6HA8PE"
+                  // sandbox
+                  // applicationId="sandbox-sq0idb-7iiDnOGPVYM8gj0SQXnHMg"
+                  applicationId="sq0idp-2VSnO9Xmxpkajj6zTS1MoA"
+                  // locationId="L832Y9Z6HA8PE"
+                  locationId="LRASNR7J8EP1Q"
                   cardNonceResponseReceived={cardNonceResponseReceived}
                   createPaymentRequest={createPaymentRequest}
                   createVerificationDetails={createVerificationDetails}
