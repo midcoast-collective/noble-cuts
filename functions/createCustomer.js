@@ -4,10 +4,10 @@ const { v4: uuidv4 } = require("uuid");
 const squareClient = squareConnect.ApiClient.instance;
 const oauth2 = squareClient.authentications["oauth2"];
 
-oauth2.accessToken = process.env.SANDBOX_ACCESS_TOKEN;
-// oauth2.accessToken = process.env.ACCESS_TOKEN;
-squareClient.basePath = "https://connect.squareupsandbox.com";
-// squareClient.basePath = "https://connect.squareup.com"
+// oauth2.accessToken = process.env.SANDBOX_ACCESS_TOKEN;
+oauth2.accessToken = process.env.ACCESS_TOKEN;
+// squareClient.basePath = "https://connect.squareupsandbox.com";
+squareClient.basePath = "https://connect.squareup.com"
 
 exports.handler = async function (event, context, callback) {
   const data = JSON.parse(event.body);
